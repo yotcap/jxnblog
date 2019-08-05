@@ -1,14 +1,15 @@
 import Vue from 'vue';
-import App from './App.vue';
+// import App from './App.vue';
+import Entry from './views/Entrance.vue';
 import router from './router/index';
 import store from './store/index';
 import './iview-components';
-import 'iview/dist/styles/iview.css';
+import '@/css/theme.less';
 
 Vue.config.productionTip = false;
 
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: (h) => h(Entry),
 }).$mount('#app');
