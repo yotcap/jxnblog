@@ -11,7 +11,7 @@
   </Layout>
 </template>
 <script>
-import JXHeader from '@/components/Header';
+import JXHeader from '@/components/JXHeader.vue';
 import Sider from '@/components/Sider';
 
 export default {

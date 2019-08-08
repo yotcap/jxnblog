@@ -2,15 +2,15 @@ import Vue from 'vue';
 import {
   Button,
   Layout,
-  Header,
+  // Header,
   Sider,
-  Content,
-  Footer,
+  // Content,
+  // Footer,
 } from 'iview';
 
 Vue.component('Button', Button);
 Vue.component('Layout', Layout);
-Vue.component('Header', Header);
+// Vue.component('Header', Header);
 Vue.component('Sider', Sider);
-Vue.component('Content', Content);
-Vue.component('Footer', Footer);
+// Vue.component('Content', Content);
+// Vue.component('Footer', Footer);

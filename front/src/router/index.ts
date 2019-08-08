@@ -10,10 +10,8 @@ export default new Router({
     {
       path: '/',
       name: 'entrancy',
-      component: () => import('@/views/Entrance.vue'),
-    },
-    {
-      path: '/home', name: 'home', component: () => import('@/views/Home.vue'),
+      // component: () => import('@/views/Entrance.vue'),
+      component: () => import('@/views/Home.vue'),
     },
     {
       path: '/about',
