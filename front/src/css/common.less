@@ -1,6 +1,57 @@
 @import './theme.less';
-@bg-color: orange;
 
-body {
-  background: @bg-color;
+@font-size: 16px;
+@max-body: 1024px;
+@min-body: 1024px;
+@color-white: rgb(228, 228, 228);
+@color-bg: rgb(255, 244, 224);
+@color-bg-header: #856d72;
+@color-bg-nav: rgb(255, 236, 199);
+@color-border-nav: rgb(255, 199, 96);
+@main-spacing: 24px;
+
+/*
+**
+**  公共样式
+**
+*/
+html, body {
+  font-size: @font-size;
+  background: @color-bg;
+}
+
+.main-mt { margin-top: @main-spacing; }
+.main-ma { margin: @main-spacing; }
+.main-pt { padding-top: @main-spacing; }
+.main-pa { padding: @main-spacing; }
+
+.container {
+  margin: 0 auto;
+  max-width: @max-body;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+/*
+**
+**
+**
+*/
+
+
+.main-content {
+  padding-top: @main-spacing;
+}
+
+header {
+  font-size: 16px;
+  color: @color-white;
+  background: @color-bg-header;
+  > div {
+    // width: 80vw;
+    height: 6vh;
+    // margin: 0 auto;
+  }
 }

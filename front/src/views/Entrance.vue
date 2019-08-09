@@ -1,24 +1,30 @@
 <template>
-  <Layout id="app">
+  <div id="app">
     <JXHeader></JXHeader>
-    <Layout>
-      <Sider></Sider>
-      <Content>
-        <router-view/>
-      </Content>
-    </Layout>
+    <div class="main-pt">
+      <Row class="container">
+        <Col :xs="{ span: 0 }" :lg="{ span: 6 }">
+          <JXSider></JXSider>
+        </Col>
+        <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 17, offset: 1 }">
+          <section>
+            <router-view/>
+          </section>
+        </Col>
+      </Row>
+    </div>
     <Footer>footer</Footer>
-  </Layout>
+  </div>
 </template>
 <script>
 import JXHeader from '@/components/JXHeader.vue';
-import Sider from '@/components/Sider';
+import JXSider from '@/components/JXSider';
 
 export default {
   name: 'Entrance',
   components: {
     JXHeader,
-    Sider,
+    JXSider,
   },
 };
 </script>
