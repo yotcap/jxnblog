@@ -1,0 +1,70 @@
+@import './theme.less';
+
+@font-size: 16px;
+@max-body: 1024px;
+@min-body: 1024px;
+@color-white: rgb(228, 228, 228);
+@color-a: rgb(50, 50, 255);
+@color-bg: rgb(255, 244, 224);
+// @color-bg-header: #856d72;
+@color-bg-header: #666;
+// @color-bg-nav: rgba(255, 236, 199, .3);
+@color-bg-nav: none;
+// @color-border-nav: rgba(255, 199, 96, .5);
+@color-border-nav: none;
+@main-spacing: 16px;
+
+/*
+**
+**  公共样式
+**
+*/
+html, body {
+  font-size: @font-size;
+  background: @color-bg;
+}
+a {
+  text-decoration: underline;
+}
+.main-mt { margin-top: @main-spacing; }
+.main-ma { margin: @main-spacing; }
+.main-pt { padding-top: @main-spacing; }
+.main-pa { padding: @main-spacing; }
+
+.container {
+  margin: 0 auto;
+  max-width: @max-body;
+}
+
+.underline {
+  border-bottom: 1px solid @color-white;
+}
+.cursor {
+  cursor: pointer;
+}
+.btn-a {
+  .cursor;
+  color: @color-a;
+}
+
+/*
+**
+**
+**
+*/
+
+
+.main-content {
+  padding-top: @main-spacing;
+}
+
+header {
+  font-size: 16px;
+  color: @color-white;
+  background: @color-bg-header;
+  > div {
+    // width: 80vw;
+    height: 60px;
+    // margin: 0 auto;
+  }
+}
