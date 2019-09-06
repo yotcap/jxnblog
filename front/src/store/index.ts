@@ -5,11 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isShowMenuIcon: false,
+    flagShowMenuIcon: false,    // menu icon
+    flagShowDrawer: false,    // Drawer
   },
   mutations: {
-    onResize(state) {
-      state.isShowMenuIcon = (window.innerWidth < 576);
+    onResize (state) {
+      state.flagShowMenuIcon = (window.innerWidth < 576);
+    },
+    handleDrawerShow (state, opt) {
+      state.flagShowDrawer = opt;
     },
   },
   actions: {

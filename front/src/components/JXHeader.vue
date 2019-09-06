@@ -2,7 +2,7 @@
   <header>
     <Row type="flex" align="middle" justify="space-between" class="container">
       <Col class="cursor" :xs="{ offset: 1 }" :lg="{ offset: 0 }">JXN</Col>
-      <Col :xs="{ pull: 1 }" v-if="isShowMenuIcon"><i class="iconfont icon-menu cursor" @click="handleShowMenu"></i></Col>
+      <Col :xs="{ pull: 1 }" v-if="flagShowMenuIcon"><i class="iconfont icon-menu cursor" @click="handleShowMenu"></i></Col>
     </Row>
   </header>
 </template>
@@ -13,12 +13,12 @@ export default {
   name: 'JXHeader',
   data() {
     return {
-      // isShowMenuIcon: false,
+      // flagDrawer: false,
     };
   },
   computed: {
     ...mapState([
-      'isShowMenuIcon',
+      'flagShowMenuIcon',
     ]),
   },
   created() {
@@ -26,11 +26,12 @@ export default {
     window.onresize = this.onResize;
   },
   methods: {
-    handleShowMenu() {
-      // ...
+    handleShowMenu () {
+      this.handleDrawerShow(true);
     },
     ...mapMutations([
       'onResize',
+      'handleDrawerShow',
     ]),
   },
 };

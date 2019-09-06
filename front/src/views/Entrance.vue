@@ -19,7 +19,6 @@
 <script>
 import JXHeader from '@/components/JXHeader.vue';
 import JXSider from '@/components/JXSider';
-
 export default {
   name: 'Entrance',
   components: {
