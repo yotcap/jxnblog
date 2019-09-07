@@ -10,7 +10,7 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  name: 'JXHeader',
+  name: 'jx-header',
   data() {
     return {
       // flagDrawer: false,

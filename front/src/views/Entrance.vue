@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <JXHeader></JXHeader>
-    <div class="main-pt">
+    <div class="boxer">
       <Row class="container">
         <Col :xs="{ span: 0 }" :lg="{ span: 6 }">
           <JXSider></JXSider>
@@ -13,20 +13,25 @@
         </Col>
       </Row>
     </div>
-    <Footer>footer</Footer>
+    <JXFooter></JXFooter>
   </div>
 </template>
 <script>
-import JXHeader from '@/components/JXHeader.vue';
+import JXHeader from '@/components/JXHeader';
 import JXSider from '@/components/JXSider';
+import JXFooter from '@/components/JXFooter';
+
 export default {
   name: 'Entrance',
   components: {
     JXHeader,
     JXSider,
+    JXFooter,
   },
 };
 </script>
 <style scoped>
-
+.boxer {
+  padding-top: 3rem;
+}
 </style>

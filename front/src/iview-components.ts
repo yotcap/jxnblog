@@ -6,6 +6,7 @@ import {
   Col,
   Sider,
   Drawer,
+  Page,
 } from 'iview';
 
 Vue.component('Button', Button);
@@ -14,3 +15,4 @@ Vue.component('Row', Row);
 Vue.component('Col', Col);
 Vue.component('Sider', Sider);
 Vue.component('Drawer', Drawer);
+Vue.component('Page', Page);

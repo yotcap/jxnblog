@@ -26,13 +26,28 @@ html, body {
 a {
   text-decoration: underline;
 }
+@list-mt: 5;
+.mt-loop(@list, @i:1, @val: extract(@list, @i)) when (@i <= length(@list)) {
+  .mt@{val} {
+    margin-top: 1rem*@val;
+  }
+  .mt-loop(@list, (@i+1));
+}
+.mt-loop(@list-mt);
+
 .main-mt { margin-top: @main-spacing; }
+.main-mb { margin-bottom: @main-spacing; }
 .main-ma { margin: @main-spacing; }
 .main-pt { padding-top: @main-spacing; }
+.main-pb { padding-bottom: @main-spacing; }
 .main-pa { padding: @main-spacing; }
 
+.m-center {
+  margin-left: auto;
+  margin-right: auto;
+}
 .container {
-  margin: 0 auto;
+  &:extend(.m-center);
   max-width: @max-body;
 }
 
@@ -53,18 +68,20 @@ a {
 **
 */
 
-
 .main-content {
   padding-top: @main-spacing;
 }
 
 header {
-  font-size: 16px;
+  font-size: 1rem;
   color: @color-white;
   background: @color-bg-header;
   > div {
-    // width: 80vw;
-    height: 60px;
-    // margin: 0 auto;
+    height: 3.75rem;
   }
+}
+footer {
+  text-align: center;
+  color: @color-white;
+  background: @color-bg-header;
 }

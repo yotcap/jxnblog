@@ -19,21 +19,23 @@
         <span>JXN</span>
       </div>
     </nav>
+    <!-- start: Drawer -->
     <Drawer
       title="JXN Blog"
       width="180"
       v-model="flagDrawer"
-      :before-close="handleLS">
+      :before-close="handleCloseDrawer">
       <p>contents</p>
       <p>contents</p>
     </Drawer>
+    <!-- end: Drawer -->
   </div>
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex';
 
 export default {
-  name: 'jxsider',
+  name: 'jx-sider',
   data () {
     return {
       // flagDrawer: false,
@@ -49,10 +51,14 @@ export default {
   },
   beforeMount () {
     // this.flagDrawer = this.flagShowDrawer;
-  }, 
+  },
   methods: {
-    handleLS: function () {
-      this.handleDrawerShow(false);
+    handleCloseDrawer () {
+      const that = this;
+      return new Promise(function (res, rej) {
+        that.handleDrawerShow(false);
+        rej('prevent default close, please ignore!!');
+      });
     },
     ...mapMutations([
       'handleDrawerShow',
