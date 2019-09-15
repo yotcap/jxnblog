@@ -1,7 +1,7 @@
 <template>
   <div class="boxer-card">
     <h2 class="title cursor" @click="handleToDetail(dataCard.id)">{{dataCard.title}}</h2>
-    <p class="summary cursor" @click="handleToDetail(dataCard.id)">{{dataCard.summary}}</p>
+    <span class="summary cursor" @click="handleToDetail(dataCard.id)">{{dataCard.summary}}</span>
     <div class="info">
       <span>{{dataCard.date}}</span>
       <span>阅读数&nbsp;{{dataCard.readingNum}}</span>
@@ -28,7 +28,7 @@ export default class Card extends Vue {
   })
   private underline: string;
   private handleToDetail (id: string): void {
-    this.$router.push(`/`);
+    this.$router.push(`/detail/${id}`);
   }
 }
 </script>
@@ -44,6 +44,7 @@ export default class Card extends Vue {
     text-decoration: underline;
   }
   .summary {
+    display: table-row;
     text-indent: 1rem;
   }
   .info {

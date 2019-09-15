@@ -1,0 +1,26 @@
+{
+  "name": "blogbe",
+  "version": "1.0.0",
+  "description": "blog BE",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": "git+https://github.com/yotcap/jxnblog.git",
+  "keywords": [
+    "blog",
+    "backend"
+  ],
+  "author": "jxn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yotcap/jxnblog/issues"
+  },
+  "homepage": "https://github.com/yotcap/jxnblog#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.0"
+  }
+}

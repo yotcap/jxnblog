@@ -16,6 +16,7 @@
 </template>
 
 <script lang="ts">
+import Axios from '@/lib/axios.js';
 import { Component, Vue } from 'vue-property-decorator';
 import Card from '@/components/Card.vue';
 
@@ -40,6 +41,11 @@ export default class Home extends Vue {
     const { condition, page } = this.$route.query;
     this.currentPage = (+page && +page > 0) ? +page : 1;
     this.getData(condition, +page);
+    Axios({
+      url: '/article/getList',
+    }).then((res: object) => {
+      console.log(res, 'get-articles-list');
+    });
   }
   private getData(condition: any, page: number): void {
     console.log(condition, page);
