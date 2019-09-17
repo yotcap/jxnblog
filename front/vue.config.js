@@ -8,11 +8,14 @@ module.exports = {
   },
   devServer: {
     proxy: {
+      // '/xpi': {
+      //   target: 'http://192.168.3.45:9090',
+      //   changeOrigin: true,
+      // },
       '/xpi': {
-        target: 'http://192.168.1.24:9090',
+        target: 'http://localhost:9090',
         changeOrigin: true,
       },
-
     },
   }
   // chainWebpack: config => {

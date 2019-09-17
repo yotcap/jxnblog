@@ -17,6 +17,8 @@
     "no-consecutive-blank-lines": false,
     "no-console": false,
     "only-arrow-functions": [false, "allow-deciarations", "allow-named-functions"],
-    "space-before-function-paren": ["error", "never"]
+    "space-before-function-paren": ["error", "never"],
+    "curly": [true, "ignore-same-line"],
+    "max-line-length": [true, { "limit": 200 }]
   }
 }

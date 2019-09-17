@@ -7,6 +7,7 @@ import {
   Sider,
   Drawer,
   Page,
+  Message,
 } from 'iview';
 
 Vue.component('Button', Button);
@@ -16,3 +17,5 @@ Vue.component('Col', Col);
 Vue.component('Sider', Sider);
 Vue.component('Drawer', Drawer);
 Vue.component('Page', Page);
+
+Vue.prototype.$Message = Message;

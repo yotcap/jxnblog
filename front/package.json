@@ -13,6 +13,7 @@
     "babel-runtime": "^6.26.0",
     "core-js": "^2.6.5",
     "iview": "^3.4.2",
+    "moment": "^2.24.0",
     "prismjs": "^1.17.1",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",

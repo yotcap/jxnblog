@@ -1,17 +1,19 @@
 <template>
   <div class="boxer-card">
-    <h2 class="title cursor" @click="handleToDetail(dataCard.id)">{{dataCard.title}}</h2>
-    <span class="summary cursor" @click="handleToDetail(dataCard.id)">{{dataCard.summary}}</span>
+    <h2 class="title cursor" @click="handleToDetail(dataCard.articleID)">{{dataCard.title}}</h2>
+    <span class="summary cursor" @click="handleToDetail(dataCard.articleID)">{{dataCard.summary}}</span>
     <div class="info">
-      <span>{{dataCard.date}}</span>
+      <!-- <span>{{dataCard.createTime}}</span> -->
+      <span>{{handleTimeFormatte(dataCard.createTime)}}</span>
       <span>阅读数&nbsp;{{dataCard.readingNum}}</span>
-      <span>{{dataCard.comments}}&nbsp;条评论</span>
+      <span>{{dataCard.commontNum}}&nbsp;条评论</span>
     </div>
     <div v-if="underline !== 'none'" class="underline"></div>
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { __timeFormatter } from '@/lib/utils';
 
 @Component
 export default class Card extends Vue {
@@ -29,6 +31,9 @@ export default class Card extends Vue {
   private underline: string;
   private handleToDetail (id: string): void {
     this.$router.push(`/detail/${id}`);
+  }
+  private handleTimeFormatte (t: string) {
+    return __timeFormatter(t, '-');
   }
 }
 </script>

@@ -26,7 +26,7 @@ html, body {
 a {
   text-decoration: underline;
 }
-@list-mt: 5;
+@list-mt: 1, 5;
 .mt-loop(@list, @i:1, @val: extract(@list, @i)) when (@i <= length(@list)) {
   .mt@{val} {
     margin-top: 1rem*@val;
@@ -34,6 +34,14 @@ a {
   .mt-loop(@list, (@i+1));
 }
 .mt-loop(@list-mt);
+@list-mb: 1;
+.mb-loop(@list, @i:1, @val: extract(@list, @i)) when (@i <= length(@list)) {
+  .mb@{val} {
+    margin-bottom: 1rem*@val;
+  }
+  .mb-loop(@list, (@i+1));
+}
+.mb-loop(@list-mb);
 
 .main-mt { margin-top: @main-spacing; }
 .main-mb { margin-bottom: @main-spacing; }
@@ -84,4 +92,8 @@ footer {
   text-align: center;
   color: @color-white;
   background: @color-bg-header;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  word-break: break-word;
 }

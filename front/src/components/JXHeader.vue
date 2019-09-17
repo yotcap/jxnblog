@@ -1,7 +1,7 @@
 <template>
   <header>
     <Row type="flex" align="middle" justify="space-between" class="container">
-      <Col class="cursor" :xs="{ offset: 1 }" :lg="{ offset: 0 }">JXN</Col>
+      <Col :xs="{ offset: 1 }" :lg="{ offset: 0 }"><span class="main-pa cursor" @click="handleToHome">JXN</span></Col>
       <Col :xs="{ pull: 1 }" v-if="flagShowMenuIcon"><i class="iconfont icon-menu cursor" @click="handleShowMenu"></i></Col>
     </Row>
   </header>
@@ -28,6 +28,9 @@ export default {
   methods: {
     handleShowMenu () {
       this.handleDrawerShow(true);
+    },
+    handleToHome () {
+      this.$router.push('/');
     },
     ...mapMutations([
       'onResize',
