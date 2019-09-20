@@ -14,6 +14,7 @@ const modules = {
     user: { type: String, require: true },
     pwd: { type: String, require: true },
     type: { type: String, reuqire: true },
+    integral: { type: Number, default: 0 },
     remark: { type: String },
     lastLogin: { type: String },
     createTime: { type: Date, default: Date.now }
@@ -31,6 +32,7 @@ const modules = {
     title: { type: String, require: true },
     summary: { type: String },
     content: { type: String, require: true },
+    category: { type: String, require: true },
     tag: { type: Array },
     readingNum: { type: Number, default: 0 },
     commontNum: { type: Number, default: 0 },
@@ -54,6 +56,18 @@ const modules = {
     content: { type: String, reuqire: true },
     likeNum: { type: String, reuqire: true },
     createTime: { type: Date, default: Date.now }
+  },
+  // config file
+  configSchema: {
+    name: { type: String, require: true },
+    val: { type: String, require: true },
+    remark: { type: String }
+  },
+  // statistics file
+  statisticsSchema: {
+    name: { type: String, reuqire: true },
+    val: { type: Number, default: 0 },
+    remark: { type: String }
   }
 }
 

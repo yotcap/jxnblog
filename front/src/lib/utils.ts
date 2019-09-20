@@ -2,7 +2,7 @@ import Moment from 'moment';
 
 // function __timeFormatter (t: string | Array<(string|number)>, fmt: string) {
 function __timeFormatter (t: any, fmt: string) {
-  return Moment(t).format('YYYY-MM-DD HH:mm:ss');
+  return Moment(t).format('YYYY-MM-DD HH:mm');
   // let result;
   // // always returns a string
   // function pad2(n: any) { return (n < 10 ? '0' : '') + n; }

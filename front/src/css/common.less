@@ -26,7 +26,7 @@ html, body {
 a {
   text-decoration: underline;
 }
-@list-mt: 1, 5;
+@list-mt: 1, 2, 3, 5;
 .mt-loop(@list, @i:1, @val: extract(@list, @i)) when (@i <= length(@list)) {
   .mt@{val} {
     margin-top: 1rem*@val;
@@ -34,7 +34,7 @@ a {
   .mt-loop(@list, (@i+1));
 }
 .mt-loop(@list-mt);
-@list-mb: 1;
+@list-mb: 1, 2, 3, 5;
 .mb-loop(@list, @i:1, @val: extract(@list, @i)) when (@i <= length(@list)) {
   .mb@{val} {
     margin-bottom: 1rem*@val;

@@ -1,7 +1,7 @@
 <template>
   <div>
     <p class="title">{{dataDetail.title}}</p>
-    <div class="underline"></div>
+    <div class="underline mt-8 mb-8"></div>
     <!-- <div id="toc">toctoc</div> -->
     <vue-markdown
       class="line-numbers language-markup"
@@ -10,6 +10,9 @@
       toc-id="toc"
       :source="dataSource">
     </vue-markdown>
+    <div class="underline mt5 mb2"></div>
+    <p class="msg-title">留下您的评论</p>
+    <msg-bod class="mt2"></msg-bod>
   </div>
 </template>
 <script lang="ts">
@@ -17,10 +20,12 @@ import { Component, Vue } from 'vue-property-decorator';
 import Axios from '@/lib/axios.js';
 import VueMarkdown from 'vue-markdown';
 import Prism from 'prismjs';
+import MsgBod from '@/components/MsgBod.vue';
 
 @Component({
   components: {
     VueMarkdown,
+    MsgBod,
   },
 })
 export default class ArticleDetail extends Vue {
@@ -56,11 +61,18 @@ export default class ArticleDetail extends Vue {
 }
 </script>
 <style scoped lang="less">
+.mt-8 {
+  margin-top: .8rem;
+}
+.mb-8 {
+  margin-bottom: .8rem;
+}
 .title {
   font-size: 1.5rem;
   font-weight: 500;
 }
-.underline {
-  margin: .8rem 0;
+.msg-title {
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 </style>

@@ -45,18 +45,7 @@ export default class Home extends Vue {
     this.currentPage = (+page && +page > 0) ? +page : 1;
     this.getData(condition ? condition : '', +page);
 
-    Axios({
-      url: '/article/save',
-      method: 'post',
-      data: {
-        content: this.ss,
-        title: '这是标题05',
-        summary: '这是摘要05',
-      },
-    }).then((res: object) => {
-      console.log(res, 'save-article');
-    });
-
+    // this.getSomeData();
 
   }
   private getData(condition: string | Array<(string|null)>, page: number): void {
@@ -79,13 +68,18 @@ export default class Home extends Vue {
     this.$router.push(`/blog?page=${page}&condition=${this.searchCondition}`);
     this.getData(this.searchCondition, page);
   }
+  // 批量生成文章
+  private getSomeData (): void {
+    Axios({
+      url: '/article/saveSome',
+    }).then((res: object) => {
+      console.log(res, 'save-article-some');
+    });
+  }
 }
 </script>
 <style lang="less" scoped>
-.home {
-  // background: #fff;
-}
-.pagination{
+.pagination {
   margin-top: 3rem;
 }
 </style>

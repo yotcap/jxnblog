@@ -5,8 +5,9 @@ const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 
 const CODE = require('../lib/constants');
+const __ = require('../lib/utils');
 
-// Article.remove({}, (err, doc) => {});    // 格式化
+// Article.remove({}, (err, doc) => { console.log('--- reset Article db done!')});    // 格式化
 
 // 查询列表
 Router.get('/getList', (req, res) => {
@@ -18,27 +19,87 @@ Router.get('/getList', (req, res) => {
   Article.find({}, (err, doc) => {
     if (!err) {
       totalNum = doc.length;
+      Article.find({}, filter).skip(shipNum).limit(+pageSize).sort(sortCondition).exec((err, doc) => {
+        if (!err) {
+          return res.json({
+            code: CODE.CODE_SUCCESS.code,
+            data: {
+              articleList: doc,
+              totalNum,
+              page: +page,
+              pageSize: +pageSize,
+            },
+            msg: CODE.CODE_SUCCESS.msg
+          });
+        } else {
+          return res.json({
+            code: CODE.CODE_ERROR.code,
+            msg: CODE.CODE_ERROR.msg
+          });
+        }
+      });
     }
   });
-  Article.find({}, filter).skip(shipNum).limit(+pageSize).sort(sortCondition).exec((err, doc) => {
-    if (!err) {
-      return res.json({
-        code: CODE.CODE_SUCCESS.code,
-        data: {
-          articleList: doc,
-          totalNum,
-          page: +page,
-          pageSize: +pageSize,
-        },
-        msg: CODE.CODE_SUCCESS.msg
-      });
-    } else {
-      return res.json({
-        code: CODE.CODE_ERROR.code,
-        msg: CODE.CODE_ERROR.msg
-      });
-    }
+  
+});
+
+// 查询文章分类
+Router.get('/getCategoryList', (req, res) => {
+  Article.aggregate([
+    {
+      $group: {
+        _id: { category: '$category' },
+        total: { $sum: 1 }
+      }
+    },
+    { $sort: { '_id.category': 1 } },
+    {
+      $project: { _id: 0, name: '$_id.category', total: 1 }
+    },
+  ]).then(result => {
+    return res.json({
+      ...CODE.CODE_SUCCESS,
+      data: result
+    });
   });
+});
+Router.get('/getOrderList', (req, res) => {
+  const type = req.query.type;
+  // 按类型分类
+  if (type === 'category') {
+    Article.aggregate([
+      {
+        $group: {
+          _id: { category: '$category' },
+          total: { $sum: 1 }
+        }
+      },
+      { $sort: { '_id.category': 1 } },
+      {
+        $project: { _id: 0, name: '$_id.category', total: 1 }
+      },
+    ]).then(result => {
+      return res.json({
+        ...CODE.CODE_SUCCESS,
+        data: result
+      });
+    });
+  // 按时间归档
+  } else if (type === 'createTime') {
+    Article.aggregate([
+      { $project: { month: { $substr: ['$createTime', 0, 7] }, } },
+      { $group: { _id: '$month', total: { $sum: 1 }, } },
+      { $sort: { _id : -1 }, },
+      { $project: { _id: 0, date: '$_id', total: 1 } }
+    ]).then(result => {
+      return res.json({
+        ...CODE.CODE_SUCCESS,
+        data: result,
+      });
+    })
+  } else {
+
+  }
 });
 
 // 获取文章详情
@@ -81,11 +142,36 @@ Router.post('/save', (req, res) => {
       });
       art.save((err, doc) => {
         if (!err) {
-          return res.json({ code: CODE.CODE_SUCCESS.code, msg: CODE.CODE_SUCCESS.msg });
+          return res.json({ ...CODE.CODE_SUCCESS });
         }
       });
     }
   });
+});
+
+//  批量生成文章
+Router.get('/saveSome', (req, res) => {
+  let i = 99;
+  const categoryList = ['js', 'css', 'html', 'vue', 'react', 'node', 'jquery', 'git', 'linux', 'db'];
+  handler(i);
+  function handler (i) {
+    if (i<120) {
+      let content = `# h1 \n --- \n \`\`\` javascript \n console.log(${i}); \n \`\`\``;
+      let art = new Article({
+        articleID: md5(content),
+        title: `title${i}`,
+        summary: `summarysummary${i}`,
+        content,
+        category: categoryList[__.random(0, categoryList.length-1)],
+        createTime: new Date('2010.'+__.random(1, 12)+'.01 13:22').getTime(),
+      });
+      art.save((err, doc) => {
+        if (!err) handler(i+1);
+      });
+    } else {
+      return res.json({ code: CODE.CODE_SUCCESS.code, msg: CODE.CODE_SUCCESS.msg });
+    }
+  }
 });
 
 module.exports = Router;
