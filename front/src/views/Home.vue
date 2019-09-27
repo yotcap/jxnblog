@@ -30,23 +30,11 @@ export default class Home extends Vue {
   private totalNum: number = 0;
   private searchCondition: string = '';
   private dataCard = [];
-  private ss: string =  `
-  \`code\`
-  \`\`\` javascript
-    function f1 () {
-      return 'ok';
-    }
-    export
-  \`\`\`
 
-  `;
   private beforeMount () {
     const { condition, page } = this.$route.query;
     this.currentPage = (+page && +page > 0) ? +page : 1;
     this.getData(condition ? condition : '', +page);
-
-    // this.getSomeData();
-
   }
   private getData(condition: string | Array<(string|null)>, page: number): void {
     console.log(condition, page);
@@ -67,14 +55,6 @@ export default class Home extends Vue {
   private handleChangePage(page: number): void {
     this.$router.push(`/blog?page=${page}&condition=${this.searchCondition}`);
     this.getData(this.searchCondition, page);
-  }
-  // 批量生成文章
-  private getSomeData (): void {
-    Axios({
-      url: '/article/saveSome',
-    }).then((res: object) => {
-      console.log(res, 'save-article-some');
-    });
   }
 }
 </script>

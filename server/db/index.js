@@ -11,12 +11,12 @@ mongoose.connection.on('connected', () => {
 const modules = {
   // user
   userSchema: {
-    user: { type: String, require: true },
+    username: { type: String, require: true },
     pwd: { type: String, require: true },
     type: { type: String, reuqire: true },
     integral: { type: Number, default: 0 },
     remark: { type: String },
-    lastLogin: { type: String },
+    lastLogin: { type: Date, default: Date.now },
     createTime: { type: Date, default: Date.now }
   },
   // visitor
@@ -78,5 +78,10 @@ for (let m in modules) {
 module.exports = {
   getModel: name => {
     return mongoose.model(name);
+  },
+  close: () => {
+    mongoose.disconnect(() => {
+      console.log('db already close');
+    });
   }
 }

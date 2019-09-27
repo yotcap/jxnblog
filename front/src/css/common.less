@@ -4,6 +4,7 @@
 @max-body: 1024px;
 @min-body: 1024px;
 @color-white: rgb(228, 228, 228);
+@color-deep-white: rgb(190, 190, 190);
 @color-a: rgb(50, 50, 255);
 @color-bg: rgb(255, 244, 224);
 // @color-bg-header: #856d72;
@@ -69,6 +70,9 @@ a {
   .cursor;
   color: @color-a;
 }
+.sub-info {
+  color: @color-deep-white;
+}
 
 /*
 **
@@ -92,6 +96,17 @@ footer {
   text-align: center;
   color: @color-white;
   background: @color-bg-header;
+}
+
+/**
+  animation
+**/
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {

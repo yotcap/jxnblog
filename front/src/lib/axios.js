@@ -74,6 +74,10 @@ axios.interceptors.response.use(function (response) {
     });
   }
 }, function (error) {
+  Message.error({
+    content: WORDS_NET_ERROR,
+    duration: 2,
+  });
   // 对响应错误做点什么
   return Promise.reject(error);
 });

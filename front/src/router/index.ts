@@ -31,6 +31,11 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
     },
+    {
+      path: '*',
+      name: 'error_404',
+      component: () => import('@/views/error-page/404.vue'),
+    },
   ],
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {

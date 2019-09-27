@@ -2,11 +2,11 @@ import axios from '@/libs/api.request'
 
 export const login = ({ userName, password }) => {
   const data = {
-    userName,
-    password
+    username: userName,
+    pwd: password
   }
   return axios.request({
-    url: 'login',
+    url: '/user/login',
     data,
     method: 'post'
   })
@@ -14,11 +14,11 @@ export const login = ({ userName, password }) => {
 
 export const getUserInfo = (token) => {
   return axios.request({
-    url: 'get_info',
-    params: {
+    url: '/user/info',
+    data: {
       token
     },
-    method: 'get'
+    method: 'post'
   })
 }
 
@@ -84,6 +84,13 @@ export const restoreTrash = msg_id => {
 }
 
 // add new user
-export const addUsdr = ({ username, pwd }) => {
-
+export const addUser = ({ username, pwd }) => {
+  return axios.request({
+    url: 'user/add',
+    method: 'post',
+    data: {
+      username,
+      pwd
+    }
+  })
 }

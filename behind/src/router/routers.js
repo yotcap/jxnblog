@@ -51,6 +51,18 @@ export default [
     ]
   },
   {
+    path: '/square',
+    name: 'square',
+    meta: {
+      title: 'square',
+      icon: 'md-menu'
+    },
+    component: Main,
+    children: [
+      { path: 'square-page', name: 'square_page', meta: { title: 'square-page' }, component: () => import('@/view/square/square-page.vue') }
+    ]
+  },
+  {
     path: '',
     name: 'doc',
     meta: {

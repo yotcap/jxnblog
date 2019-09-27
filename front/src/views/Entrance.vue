@@ -8,7 +8,9 @@
         </Col>
         <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 17, offset: 1 }">
           <section>
-            <router-view/>
+            <transition name="fade" mode="out-in">
+              <router-view />
+            </transition>
           </section>
         </Col>
       </Row>
@@ -17,19 +19,32 @@
     <BackTop />
   </div>
 </template>
-<script>
-import JXHeader from '@/components/JXHeader';
-import JXSider from '@/components/JXSider';
-import JXFooter from '@/components/JXFooter';
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import Axios from '@/lib/axios.js';
+import JXHeader from '@/components/JXHeader.vue';
+import JXSider from '@/components/JXSider.vue';
+import JXFooter from '@/components/JXFooter.vue';
 
-export default {
-  name: 'Entrance',
+@Component({
   components: {
     JXHeader,
     JXSider,
     JXFooter,
   },
-};
+})
+export default class Entrance extends Vue {
+  beforeMount () {
+    this.handleAccess();
+  }
+  handleAccess () {
+    Axios({
+      url: '/statistics/access',
+    }).then((res: any) => {
+      console.log(res, 'access-statistics');
+    });
+  }
+}
 </script>
 <style scoped>
 .boxer {

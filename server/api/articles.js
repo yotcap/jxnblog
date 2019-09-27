@@ -11,7 +11,9 @@ const __ = require('../lib/utils');
 
 // 查询列表
 Router.get('/getList', (req, res) => {
-  const { pageSize, page, condition } = req.query;
+  let { pageSize, page, condition } = req.query;
+  if (!pageSize) pageSize = 10;
+  if (!page) page = 1;
   const shipNum = (page - 1) * pageSize;
   const sortCondition = { 'createTime': -1 };   // 排序规则
   const filter = {_id: 0, __v: 0, content: 0, lastModifiedTime: 0};
@@ -43,7 +45,7 @@ Router.get('/getList', (req, res) => {
   
 });
 
-// 查询文章分类
+// 查询文章分类（已废弃）
 Router.get('/getCategoryList', (req, res) => {
   Article.aggregate([
     {
@@ -63,6 +65,8 @@ Router.get('/getCategoryList', (req, res) => {
     });
   });
 });
+
+// 查询文章分类
 Router.get('/getOrderList', (req, res) => {
   const type = req.query.type;
   // 按类型分类
@@ -120,8 +124,11 @@ Router.get('/getDetail', (req, res) => {
           data: doc
         });
       }
+      // 更新阅读数
+      Article.updateOne({articleID}, {$set:{readingNum: ++doc.readingNum}}, () => {});
     }
-  })
+  });
+
 })
 
 // 新增文章
@@ -149,7 +156,7 @@ Router.post('/save', (req, res) => {
   });
 });
 
-//  批量生成文章
+// 批量生成文章（已废弃）
 Router.get('/saveSome', (req, res) => {
   let i = 99;
   const categoryList = ['js', 'css', 'html', 'vue', 'react', 'node', 'jquery', 'git', 'linux', 'db'];

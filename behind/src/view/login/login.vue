@@ -4,7 +4,7 @@
 
 <template>
   <div class="login">
-    <Button @click="handleAddUser">Add a super</Button>
+    <Button @click="handleAdduser">Add a super</Button>
     <div class="login-con">
       <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
@@ -26,7 +26,8 @@ export default {
   methods: {
     ...mapActions([
       'handleLogin',
-      'getUserInfo'
+      'getUserInfo',
+      'handleAddUser'
     ]),
     handleSubmit ({ userName, password }) {
       this.handleLogin({ userName, password }).then(res => {
@@ -37,8 +38,17 @@ export default {
         })
       })
     },
-    handleAddUser () {
-      // ...
+    handleAdduser () {
+      this.handleAddUser({
+        username: 'spadmin',
+        pwd: '1'
+      }).then(res => {
+        if (res.code === 1000) {
+          this.$Message.success({
+            content: res.msg
+          })
+        }
+      })
     }
   }
 }
