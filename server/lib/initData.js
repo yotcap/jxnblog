@@ -64,12 +64,13 @@ function generateArticle () {
       handler(i);
       function handler (i) {
         if (i<numArticleTotal) {
-          let content = `# h1 \n --- \n \`\`\` javascript \n console.log(${i}); \n \`\`\``;
-          let art = new Article({
+          const content = `# h1 \n --- \n \`\`\` javascript \n console.log(${i}); \n \`\`\``;
+          const art = new Article({
             articleID: md5(content),
             title: `title${i}`,
             summary: `summarysummary${i}`,
             content,
+            type: __.random(0, 1),
             category: categoryList[__.random(0, categoryList.length-1)],
             createTime: new Date('2010.'+__.random(1, 12)+'.01 13:22').getTime(),
           });

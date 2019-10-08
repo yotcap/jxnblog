@@ -16,10 +16,11 @@
     </vue-markdown>
     <div class="underline mt5"></div>
     <div class="footer-info mt1">
-      <span class="sub-info">文章分类：</span><a >{{dataDetail.category}}</a><br>
-      <div class="mt-8" v-if="dataDetail.tag && dataDetail.tag.length">
+      <span class="sub-info">文章分类：</span>
+      <router-link tag="a" :to="'/blog?cate='+dataDetail.category">{{dataDetail.category}}</router-link><br />
+      <div class="mt-8" v-if="dataDetail.tags && dataDetail.tags.length">
         <span class="sub-info">标签：</span>
-        <Tag v-for="item in dataDetail.tag" :key="item" :data="item" />
+        <Tag v-for="item in dataDetail.tags" :key="item" :data="item" />
       </div>
     </div>
     <div class="underline mt1 mb2"></div>
@@ -49,12 +50,11 @@ export default class ArticleDetail extends Vue {
   private dataDetail: object = {};
   private dataSource: string = '';
   beforeMount () {
-    // this.artId = this.$route.query.id
     const id = this.$route.path.split('/')[2];
     this.getData(id);
   }
   mounted () {
-    this.flagToc = true;
+    // this.flagToc = true;
     Prism.highlightAll();
   }
   getData (id: string) {
@@ -68,7 +68,7 @@ export default class ArticleDetail extends Vue {
       this.dataSource = res.data.content;
       this.dataDetail = res.data;
       setTimeout(() => {
-        this.flagToc = true;
+        // this.flagToc = true;
         Prism.highlightAll();
       }, 0);
     });

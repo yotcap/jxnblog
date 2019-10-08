@@ -9,6 +9,7 @@
       size="small"
       class-name="pagination"
       show-elevator
+      show-total
       :current="currentPage"
       :total="totalNum"
       @on-change="handleChangePage" />
@@ -17,7 +18,7 @@
 
 <script lang="ts">
 import Axios from '@/lib/axios.js';
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import Card from '@/components/Card.vue';
 
 @Component({
@@ -28,23 +29,33 @@ import Card from '@/components/Card.vue';
 export default class Home extends Vue {
   private currentPage: number = 1;
   private totalNum: number = 0;
-  private searchCondition: string = '';
+  private searchCondition: string | Array<string | null> = '';     // 搜索条件
+  private cate: string | Array<string | null> = '';    // 文章分类
+  private date: string | Array<string | null> = '';    // 日期
   private dataCard = [];
-
-  private beforeMount () {
-    const { condition, page } = this.$route.query;
-    this.currentPage = (+page && +page > 0) ? +page : 1;
-    this.getData(condition ? condition : '', +page);
+  @Watch('$route')
+  watchRoute(to: any, from: any) {
+    if (to.query !== from.query) {
+      this.getData();
+    }
   }
-  private getData(condition: string | Array<(string|null)>, page: number): void {
-    console.log(condition, page);
-    if (!page) page = 1;
+  private beforeMount () {
+    this.getData();
+  }
+  private getData(): void {
+    const { condition, page, cate, date } = this.$route.query;
+    this.currentPage = (+page && +page > 0) ? +page : 1;
+    this.searchCondition = condition;
+    this.date = date;
+    this.cate = cate;
     Axios({
       url: '/article/getList',
       params: {
-        condition,
-        page,
-        pageSize: 10,
+        pageSize: this.$config.pageSize,
+        page: this.currentPage,
+        condition: this.searchCondition,
+        cate,
+        date,
       },
     }).then((res: any) => {
       console.log(res, 'get-articles-list');
@@ -53,8 +64,9 @@ export default class Home extends Vue {
     });
   }
   private handleChangePage(page: number): void {
-    this.$router.push(`/blog?page=${page}&condition=${this.searchCondition}`);
-    this.getData(this.searchCondition, page);
+    const u = `/blog?page=${page}${this.searchCondition ? '&condition='+this.searchCondition : ''}${this.date ? '&date='+this.date : ''}${this.cate ? '&cate='+this.cate : ''}`;
+    this.$router.push(u);
+    this.getData();
   }
 }
 </script>

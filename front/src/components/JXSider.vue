@@ -5,14 +5,27 @@
       <div class="nav-boxer">
         <p>文章分类</p>
         <div class="underline"></div>
-        <a v-for="item in dataCategoryList" :key="item.name">{{item.name}}&nbsp;({{item.total}})</a>
+        <router-link 
+          tag="a"
+          v-for="item in dataCategoryList"
+          :key="item.name"
+          :to="'/blog?cate='+item.name">
+          {{item.name}}&nbsp;({{item.total}})
+        </router-link>
       </div>
       <!-- end: category -->
       <!-- start: date -->
       <div class="nav-boxer">
         <p>存档</p>
         <div class="underline"></div>
-        <a v-for="item in dataDateList" :key="item.date">{{item.date}}&nbsp;({{item.total}})</a>
+        <!-- <a v-for="item in dataDateList" :key="item.date">{{item.date}}&nbsp;({{item.total}})</a> -->
+        <router-link
+          tag="a"
+          v-for="item in dataDateList"
+          :key="item.date"
+          :to="'/blog?date='+item.date">
+          {{item.date}}&nbsp;({{item.total}})
+        </router-link>
       </div>
       <!-- end: date -->
       <div class="nav-boxer">

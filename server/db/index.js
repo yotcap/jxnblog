@@ -32,13 +32,15 @@ const modules = {
     title: { type: String, require: true },
     summary: { type: String },
     content: { type: String, require: true },
-    category: { type: String, require: true },
-    tag: { type: Array },
+    type: { type: Number, require: true },    // 文章类型：  0 原创    1 转载
+    category: { type: String, require: true },    // 文章分类
+    tags: { type: Array },   // 标签
     readingNum: { type: Number, default: 0 },
     commontNum: { type: Number, default: 0 },
     likeNum: { type: Number, default: 0 },
     lastModifiedTime: { type: Date, default: Date.now },
     createTime: { type: Date, default: Date.now },
+    remark: { type: String },
   },
   // article commonts
   commontsSchema: {

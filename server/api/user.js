@@ -54,6 +54,7 @@ Router.post('/login', (req, res) => {
         algorithm: 'RS256',
         expiresIn: '1h'
       });
+      User.updateOne({ username }, { $set: { lastLogin: Date.now() }});
       return res.json({
         ..._C.CODE_SUCCESS,
         data: { token }

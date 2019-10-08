@@ -3,10 +3,10 @@
     <textarea ref="editor"></textarea>
   </div>
 </template>
-
 <script>
 import Simplemde from 'simplemde'
 import 'simplemde/dist/simplemde.min.css'
+
 export default {
   name: 'MarkdownEditor',
   props: {
@@ -48,7 +48,11 @@ export default {
   },
   mounted () {
     this.editor = new Simplemde(Object.assign(this.options, {
-      element: this.$refs.editor
+      element: this.$refs.editor,
+      indentWithTabs: false,
+      renderingConfig: {
+        codeSyntaxHighlighting: true
+      },
     }))
     /**
      * 事件列表为Codemirror编辑器的事件，更多事件类型，请参考：

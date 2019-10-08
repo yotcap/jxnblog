@@ -30,7 +30,7 @@ export default [
   {
     path: '/',
     name: '_home',
-    redirect: '/home',
+    // redirect: '/square',
     component: Main,
     meta: {
       hideInMenu: true,
@@ -40,6 +40,7 @@ export default [
       {
         path: '/home',
         name: 'home',
+        // redirect: '/square',
         meta: {
           hideInMenu: true,
           title: '首页',
@@ -60,6 +61,17 @@ export default [
     component: Main,
     children: [
       { path: 'square-page', name: 'square_page', meta: { title: 'square-page' }, component: () => import('@/view/square/square-page.vue') }
+    ]
+  },
+  {
+    path: '/creative-space',
+    name: 'creative-space',
+    meta: {
+      title: 'creative-space'
+    },
+    component: Main,
+    children: [
+      { path: 'room', name: 'room', meta: { title: 'creative-room' }, component: () => import('@/view/creative-space/creative-space.vue') }
     ]
   },
   {

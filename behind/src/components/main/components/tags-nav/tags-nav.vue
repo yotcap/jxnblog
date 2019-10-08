@@ -126,6 +126,8 @@ export default {
           if (close) {
             this.close(current)
           }
+        }).catch(err => {
+          console.log(err)
         })
       } else {
         this.close(current)

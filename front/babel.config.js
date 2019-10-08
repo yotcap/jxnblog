@@ -13,5 +13,5 @@ module.exports = {
       'theme': 'tomorrow',
       'css': true
     }]
-]
+  ]
 }
