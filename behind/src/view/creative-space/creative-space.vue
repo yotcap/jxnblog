@@ -106,7 +106,7 @@ export default {
         content: this.content,
         tags: this.arrTag,
         category: this.category,
-        summary: handleSummary(this.content)
+        summary:this.handleSummary(this.content)
       }
       addArticle(art).then(res => {
         const data = res.data
@@ -114,7 +114,9 @@ export default {
         if (data.code === 1000) {
           this.$Message.success('发表成功！')
           localStorage.removeItem('markdownContent')
-          this.$router.push('/home')
+          this.$router.push({
+            name: this.$config.homeName
+          })
         }
       })
     },
@@ -149,6 +151,8 @@ export default {
       cacheSummary = cacheSummary.replace('> ', '')
       cacheSummary = cacheSummary.replace('**', '')
       cacheSummary = cacheSummary.replace(/\#* /g, '')
+      cacheSummary = cacheSummary.replace(/[\r\n]/g, '')
+      cacheSummary = cacheSummary.replace('---', '')
       return cacheSummary
     },
     handleCloseTag (event, name) {

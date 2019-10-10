@@ -1,7 +1,7 @@
 <template>
   <div class="boxer-card">
     <h2 class="title cursor" @click="handleToDetail(dataCard.articleID)">{{dataCard.title}}</h2>
-    <span class="summary cursor" @click="handleToDetail(dataCard.articleID)">{{dataCard.summary}}</span>
+    <span class="summary cursor" :title="dataCard.summary" @click="handleToDetail(dataCard.articleID)">{{dataCard.summary}}</span>
     <div class="info">
       <!-- <span>{{dataCard.createTime}}</span> -->
       <span>{{handleTimeFormatte(dataCard.createTime)}}</span>
