@@ -64,7 +64,7 @@ export default class Home extends Vue {
     });
   }
   private handleChangePage(page: number): void {
-    const u = `/blog?page=${page}${this.searchCondition ? '&condition='+this.searchCondition : ''}${this.date ? '&date='+this.date : ''}${this.cate ? '&cate='+this.cate : ''}`;
+    const u = `/blog?page=${page}${this.searchCondition ? '&condition=' + this.searchCondition : ''}${this.date ? '&date=' + this.date : ''}${this.cate ? '&cate=' + this.cate : ''}`;
     this.$router.push(u);
     this.getData();
   }

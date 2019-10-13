@@ -24,8 +24,11 @@
       </div>
     </div>
     <div class="underline mt1 mb2"></div>
+    <p class="msg-title">留言</p>
+    <com-bod class="mt1 mb2" :data="dataCom" />
+    <div class="underline mt1 mb2"></div>
     <p class="msg-title">留下您的评论</p>
-    <msg-bod class="mt2"></msg-bod>
+    <msg-bod class="mt2" ref="msgBod" @postMsg="handlePostMsg" />
   </div>
 </template>
 <script lang="ts">
@@ -34,6 +37,7 @@ import Axios from '@/lib/axios.js';
 import VueMarkdown from 'vue-markdown';
 import Prism from 'prismjs';
 import MsgBod from '@/components/MsgBod.vue';
+import ComBod from '@/components/CommentsBod.vue';
 import Tag from '@/components/Tag.vue';
 import { __timeFormatter } from '@/lib/utils';
 
@@ -42,6 +46,7 @@ import { __timeFormatter } from '@/lib/utils';
     VueMarkdown,
     MsgBod,
     Tag,
+    ComBod,
   },
 })
 export default class ArticleDetail extends Vue {
@@ -49,9 +54,11 @@ export default class ArticleDetail extends Vue {
   private flagToc: boolean = false;   // 是否启用toc
   private dataDetail: object = {};
   private dataSource: string = '';
+  private dataCom: [] = [];   // 留言
   beforeMount () {
-    const id = this.$route.path.split('/')[2];
-    this.getData(id);
+    this.artId = this.$route.path.split('/')[2];
+    this.getData(this.artId);
+    this.getDataCom();
   }
   mounted () {
     // this.flagToc = true;
@@ -71,6 +78,39 @@ export default class ArticleDetail extends Vue {
         // this.flagToc = true;
         Prism.highlightAll();
       }, 0);
+    });
+  }
+  getDataCom () {
+    Axios({
+      url: '/comments/get',
+      params: {
+        artID: this.artId,
+      },
+    }).then((res: any) => {
+      console.log(res, 'get-comments-list-art');
+      if (res.code === 1000) {
+        this.dataCom = res.data;
+      }
+    });
+  }
+  handlePostMsg (params: object) {
+    Axios({
+      url: '/comments/save',
+      method: 'post',
+      data: {
+        artID: this.artId,
+        val: params,
+      },
+    }).then((res: any) => {
+      console.log(res, 'save-commonts-art');
+      if (res.code === 1000) {
+        this.$Message.success({
+          content: '评论成功！',
+          duration: 2,
+        });
+        this.getDataCom();
+        (this.$refs.msgBod as any).handleResetForm();
+      }
     });
   }
   handleTimeFormatter (t: any) {
@@ -96,7 +136,7 @@ export default class ArticleDetail extends Vue {
   font-size: 0.875rem;
 }
 .msg-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
 }
 </style>

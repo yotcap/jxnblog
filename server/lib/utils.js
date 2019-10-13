@@ -49,7 +49,15 @@ function authtoken (req, res, next) {
   }
 }
 
+// 常用过滤器
+filter = {
+  __v: 0,
+  _id: 0,
+  lastModifiedTime: 0
+}
+
 module.exports = __ = {
   random,
   authtoken,
+  filter,
 }

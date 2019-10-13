@@ -42,13 +42,19 @@ const modules = {
     createTime: { type: Date, default: Date.now },
     remark: { type: String },
   },
-  // article commonts
-  commontsSchema: {
+  // article comments
+  commentsSchema: {
     articleID: { type: String, require: true },
     name: { type: String, require: true },
     email: { type: String, require: true },
     content: { type: String, require: true },
     likeNum: { type: Number, default: 0 },
+    createTime: { type: Date, default: Date.now }
+  },
+  // reply schema
+  replySchema: {
+    commontID: { type: String, require: true },
+    content: { type: String, require: true },
     createTime: { type: Date, default: Date.now }
   },
   // message board

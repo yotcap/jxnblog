@@ -12,6 +12,7 @@ const server = require('http').Server(app);
 const RouterArticle = require('./api/articles');
 const RouterUser = require('./api/user');
 const RouterStatistics = require('./api/statistics');
+const RouterComments = require('./api/comments');
 
 const PORT = 9090;
 const BASE_PATH = '/xpi';
@@ -32,6 +33,7 @@ app.use(morgan('combined', { stream: accessLogStream }));
 app.use(BASE_PATH+'/article', RouterArticle);
 app.use(BASE_PATH+'/user', RouterUser);
 app.use(BASE_PATH+'/statistics', RouterStatistics);
+app.use(BASE_PATH+'/comments', RouterComments);
 app.use(compression());   // 启用gzip压缩
 
 server.listen(PORT, () => {

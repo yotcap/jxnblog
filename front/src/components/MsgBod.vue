@@ -7,9 +7,9 @@
       <FormItem prop="email" label="邮箱">
         <Input type="email" class="input-short" clearable v-model="valForm.email" />
       </FormItem>
-      <FormItem prop="desc" label="内容">
+      <FormItem prop="content" label="内容">
         <Input
-          v-model="valForm.desc"
+          v-model="valForm.content"
           type="textarea"
           :autosize="{minRows: 5, maxRows: 15}"
           placeholder="Enter something..." />
@@ -24,6 +24,8 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Axios from '@/lib/axios.js';
+
 const validateUser = (rule: any, value: string, callback: any) => {
   // if (value === '') {
   //   callback(new Error('请输入昵称'));
@@ -41,12 +43,13 @@ const validateUser = (rule: any, value: string, callback: any) => {
 
 @Component
 export default class MsgBod extends Vue {
+  artID: string = '';
   valEmail: string = '';
   valName: string = '';
   valForm: object = {
     user: '',
     email: '',
-    desc: '',
+    content: '',
   };
   rulesForm: object = {
     user: [
@@ -58,20 +61,23 @@ export default class MsgBod extends Vue {
       { required: true, message: '请输入邮箱', trigger: 'blur' },
       { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' },
     ],
-    desc: [
+    content: [
       { required: true, message: '请输入评论内容', trigger: 'blur' },
       { type: 'string', min: 6, message: '不得少于6个字符', trigger: 'blur'},
     ],
   };
+  beforeMount () {
+    if (this.$route.name === 'article-detail') this.artID = this.$route.params.id;
+  }
   handleSubmit (name: string) {
-    // if (!(this.$refs[name] as Vue & { validate: () => boolean }).validate()) {
-    //   console.log('ok');
-    // }
     (this.$refs[name] as any).validate((valid: boolean) => {
       if (valid) {
-        console.log('ok!');
+        this.$emit('postMsg', this.valForm);
       }
     });
+  }
+  handleResetForm () {
+    (this.$refs.formMsg as any).resetFields();
   }
 }
 </script>
