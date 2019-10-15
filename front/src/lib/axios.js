@@ -66,6 +66,7 @@ axios.interceptors.response.use(function (response) {
         content: response.data.msg,
         duration: 2,
       });
+      return response.data;
     }
   } else {
     Message.error({

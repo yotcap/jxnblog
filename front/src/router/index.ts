@@ -21,7 +21,12 @@ export default new Router({
     {
       path: '/detail/:id',
       name: 'article-detail',
-      component: () => import ('@/views/article-detail.vue'),
+      component: () => import('@/views/article-detail.vue'),
+    },
+    {
+      path: '/msg',
+      name: 'msg',
+      component: () => import('@/views/message-board/message-board.vue'),
     },
     {
       path: '/about',

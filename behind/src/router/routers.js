@@ -74,6 +74,18 @@ export default [
       { path: 'room', name: 'room', meta: { title: 'creative-room' }, component: () => import('@/view/creative-space/creative-space.vue') }
     ]
   },
+  // 设置中心
+  {
+    path: '/config',
+    name: '_config',
+    meta: {
+      title: 'config'
+    },
+    component: Main,
+    children: [
+      { path: 'config-page', name: 'config', meta: { title: 'config-page' }, component: () => import('@/view/config/config.vue') }
+    ]
+  },
   {
     path: '',
     name: 'doc',

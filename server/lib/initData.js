@@ -1,23 +1,51 @@
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 const Statistics = Model.getModel('statisticsSchema');
+const Config = Model.getModel('configSchema');
 const _U = require('./utils');
+
+const isGenerateData = false;   // 是否制造一些假数据
 
 const numArticleStart = 0;    // 文章开始id
 const numArticleTotal = 120;    // 文章总数
 
-(() => {
+// (() => {
   
-  generateStatistics().then(() => {
-    generateArticle().then(() => {
-      Model.close();
-    });
-  });
+//   generateStatistics().then(() => {
+//     generateArticle().then(() => {
+//       Model.close();
+//     });
+//   });
 
-})();
+// })();
+
+initDB();
+if (isGenerateData) generateSomeData();
+
+// 初始化数据库
+async function initDB () {
+  try {
+    await initStatistics();
+    await initConfig();
+    if (!isGenerateData) Model.close();
+  } catch (e) {
+    if (!isGenerateData) Model.close();
+    // console.log(e);
+  }
+}
+
+// 制造一些假数据
+async function generateSomeData () {
+  try {
+    await generateArticle();
+    Model.close();
+  } catch (e) {
+    // console.log(e);
+  }
+}
 
 // 初始化统计表
-function generateStatistics () {
+function initStatistics () {
   return new Promise((resolve, reject) => {
     Statistics.find({}, (err, doc) => {
       if (!err) {
@@ -43,6 +71,32 @@ function generateStatistics () {
     });
   });
   
+}
+
+// 初始化设置表
+function initConfig () {
+  return new Promise((resolve, rejcet) => {
+    Config.find({}, (err, doc) => {
+      if (!err) {
+        if (doc.length) {
+          cs('db config is not empty', 'g', 'error');
+          reject();
+        } else {
+          const flagComment = new Config({
+            name: 'flagComment',
+            val: 'true',
+            remark: '是否开启评论功能'
+          });
+          flagComment.save((err, doc) => {
+            if (!err) {
+              cs('config -- flagComment', 'g');
+              resolve();
+            }
+          });
+        }
+      } else rejcet();
+    })
+  })
 }
 
 // 批量生成文章

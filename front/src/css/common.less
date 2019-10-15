@@ -9,6 +9,7 @@
 @color-bg: rgb(255, 244, 224);
 // @color-bg-header: #856d72;
 @color-bg-header: #666;
+@color-bg-header-deep: rgb(68, 68, 68);
 // @color-bg-nav: rgba(255, 236, 199, .3);
 @color-bg-nav: none;
 // @color-border-nav: rgba(255, 199, 96, .5);
@@ -75,6 +76,11 @@ a {
   color: @color-deep-white;
 }
 
+.sub-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 /*
 **
 **
@@ -91,6 +97,19 @@ header {
   background: @color-bg-header;
   > div {
     height: 3.75rem;
+  }
+  ul {
+    list-style-type: none;
+    li {
+      padding: 0.5714rem 0.7143rem;
+      display: inline-block;
+      transition: background-color .2s;
+      .cursor;
+      &:hover {
+        border-radius: 0.2143rem;
+        background: @color-bg-header-deep;
+      }
+    }
   }
 }
 footer {

@@ -41,10 +41,11 @@
     <Drawer
       title="JXN Blog"
       width="180"
+      class="drawer-boxer"
       v-model="flagDrawer"
       :before-close="handleCloseDrawer">
-      <p>contents</p>
-      <p>contents</p>
+      <p @click="handleTo('blog')">首页</p>
+      <p @click="handleTo('msg')">留言板</p>
     </Drawer>
     <!-- end: Drawer -->
   </div>
@@ -96,6 +97,10 @@ export default class JXSider extends Vue {
       }
     });
   }
+  handleTo (opt) {
+    this.$router.push(`/${opt}`);
+    this.handleDrawerShow(false);
+  }
   handleCloseDrawer () {
     const that = this;
     return new Promise(function (res, rej) {
@@ -117,7 +122,7 @@ nav {
     width: 100%;
     border: 0.0625rem solid @color-border-nav;
     border-radius: 0.125rem;
-    box-shadow: 0.0625rem 0.0625rem 0.25rem  rgba(65, 65, 65, 0.3);;
+    box-shadow: 0.0625rem 0.0625rem 0.25rem  rgba(65, 65, 65, 0.3);
     background: @color-bg-nav;
     > p {
       font-weight: bold;
@@ -131,4 +136,14 @@ nav {
   }
 }
 
+.drawer-boxer .ivu-drawer-body {
+  padding-left: 0;
+  padding-right: 0;
+  p {
+    margin: .2rem 0;
+    padding: .5rem;
+    // border-radius: 4px;
+    background-color: #eee;
+  }
+}
 </style>

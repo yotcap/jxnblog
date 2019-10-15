@@ -24,10 +24,10 @@
       </div>
     </div>
     <div class="underline mt1 mb2"></div>
-    <p class="msg-title">留言</p>
+    <p class="sub-title">留言</p>
     <com-bod class="mt1 mb2" :data="dataCom" />
     <div class="underline mt1 mb2"></div>
-    <p class="msg-title">留下您的评论</p>
+    <p class="sub-title">留下您的评论</p>
     <msg-bod class="mt2" ref="msgBod" @postMsg="handlePostMsg" />
   </div>
 </template>
@@ -134,9 +134,5 @@ export default class ArticleDetail extends Vue {
 }
 .footer-info {
   font-size: 0.875rem;
-}
-.msg-title {
-  font-size: 1.1rem;
-  font-weight: 500;
 }
 </style>

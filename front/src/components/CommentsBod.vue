@@ -5,7 +5,7 @@
         <span class="name">{{item.name}}：</span><span>{{item.content}}</span>
       </div>
     </template>
-    <div class="com-no-data" v-else>暂无评论</div>
+    <div class="com-no-data" v-else>暂无{{words}}</div>
   </div>
 </template>
 <script lang="ts">
@@ -21,6 +21,10 @@ export default class CommentsBod extends Vue {
     },
   })
   data: [];
+  words: string = '评论';
+  beforeMount () {
+    if (this.$route.name === 'msg') this.words = '留言';
+  }
 }
 
 </script>
