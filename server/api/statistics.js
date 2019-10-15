@@ -16,7 +16,7 @@ Router.get('/access', (req, res) => {
         const updateData = { $set: { val: ++v }};
         Statistics.updateOne(whereCondition, updateData, (err, doc) => {
           if (!err) {
-            return res.json({ ..._C.CODE_SUCCESS });
+            return res.json(_C.CODE_SUCCESS);
           }
         });
 

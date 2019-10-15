@@ -4,7 +4,7 @@ const Router = express.Router();
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 
-const CODE = require('../lib/constants');
+const _C = require('../lib/constants');
 const __ = require('../lib/utils');
 
 // Article.remove({}, (err, doc) => { console.log('--- reset Article db done!')});    // 格式化
@@ -39,46 +39,21 @@ Router.get('/getList', (req, res) => {
       Article.find({...searchCondition}, filter).skip(shipNum).limit(+pageSize).sort(sortCondition).exec((err, doc) => {
         if (!err) {
           return res.json({
-            code: CODE.CODE_SUCCESS.code,
+            ..._C.CODE_SUCCESS,
             data: {
               articleList: doc,
               totalNum,
               page: +page,
               pageSize: +pageSize,
-            },
-            msg: CODE.CODE_SUCCESS.msg
+            }
           });
         } else {
-          return res.json({
-            code: CODE.CODE_ERROR.code,
-            msg: CODE.CODE_ERROR.msg
-          });
+          return res.json(_C.CODE_ERROR);
         }
       });
     }
   });
   
-});
-
-// 查询文章分类（已废弃）
-Router.get('/getCategoryList', (req, res) => {
-  Article.aggregate([
-    {
-      $group: {
-        _id: { category: '$category' },
-        total: { $sum: 1 }
-      }
-    },
-    { $sort: { '_id.category': 1 } },
-    {
-      $project: { _id: 0, name: '$_id.category', total: 1 }
-    },
-  ]).then(result => {
-    return res.json({
-      ...CODE.CODE_SUCCESS,
-      data: result
-    });
-  });
 });
 
 // 查询文章分类
@@ -99,7 +74,7 @@ Router.get('/getOrderList', (req, res) => {
       },
     ]).then(result => {
       return res.json({
-        ...CODE.CODE_SUCCESS,
+        ..._C.CODE_SUCCESS,
         data: result
       });
     });
@@ -112,7 +87,7 @@ Router.get('/getOrderList', (req, res) => {
       { $project: { _id: 0, date: '$_id', total: 1 } }
     ]).then(result => {
       return res.json({
-        ...CODE.CODE_SUCCESS,
+        ..._C.CODE_SUCCESS,
         data: result,
       });
     })
@@ -128,14 +103,10 @@ Router.get('/getDetail', (req, res) => {
   Article.findOne({articleID}, filter, (err, doc) => {
     if (!err) {
       if (!doc) {
-        res.json({
-          code: CODE.CODE_NO_DATA.code,
-          msg: CODE.CODE_NO_DATA.msg
-        });
+        return res.json(_C.CODE_NO_DATA);
       } else {
         res.json({
-          code: CODE.CODE_SUCCESS.code,
-          msg: CODE.CODE_SUCCESS.msg,
+          ..._C.CODE_SUCCESS,
           data: doc
         });
       }
@@ -154,7 +125,7 @@ Router.post('/save', (req, res) => {
   const articleID = 'art_' + cacheContent;
   Article.findOne({ articleID }, (err, doc) => {
     if (doc) {
-      return res.json({ code: CODE.CODE_ARTICLE_DATA_REPEATE.code, msg: CODE.CODE_ARTICLE_DATA_REPEATE.msg });
+      return res.json(_C.CODE_ARTICLE_DATA_REPEATE);
     } else {
       let id = 'art_' + cacheContent;
       if (!summary) summary = content;
@@ -170,36 +141,11 @@ Router.post('/save', (req, res) => {
       });
       art.save((err, doc) => {
         if (!err) {
-          return res.json({ ...CODE.CODE_SUCCESS });
+          return res.json(_C.CODE_SUCCESS);
         }
       });
     }
   });
-});
-
-// 批量生成文章（已废弃）
-Router.get('/saveSome', (req, res) => {
-  let i = 99;
-  const categoryList = ['js', 'css', 'html', 'vue', 'react', 'node', 'jquery', 'git', 'linux', 'db'];
-  handler(i);
-  function handler (i) {
-    if (i<120) {
-      let content = `# h1 \n --- \n \`\`\` javascript \n console.log(${i}); \n \`\`\``;
-      let art = new Article({
-        articleID: md5(content),
-        title: `title${i}`,
-        summary: `summarysummary${i}`,
-        content,
-        category: categoryList[__.random(0, categoryList.length-1)],
-        createTime: new Date('2010.'+__.random(1, 12)+'.01 13:22').getTime(),
-      });
-      art.save((err, doc) => {
-        if (!err) handler(i+1);
-      });
-    } else {
-      return res.json({ code: CODE.CODE_SUCCESS.code, msg: CODE.CODE_SUCCESS.msg });
-    }
-  }
 });
 
 module.exports = Router;

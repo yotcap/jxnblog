@@ -6,7 +6,7 @@ const Msg = Model.getModel('msgBoardSchema');
 const Article = Model.getModel('articleSchema');
 const Config = Model.getModel('configSchema');
 
-const CODE = require('../lib/constants');
+const _C = require('../lib/constants');
 const __ = require('../lib/utils');
 
 Router.post('/save', (req, res) => {
@@ -14,7 +14,7 @@ Router.post('/save', (req, res) => {
   Config.findOne({ name: 'flagComment' }, (err, doc) => {
     if (!err) {
       // 评论功能已关闭
-      if (doc.val === 'false') return res.json(CODE.CODE_PROHIBIT_COMMENTS);
+      if (doc.val === 'false') return res.json(_C.CODE_PROHIBIT_COMMENTS);
       // 已开启评论功能
       // 文章留言
       if (artID) {
@@ -32,20 +32,20 @@ Router.post('/save', (req, res) => {
                   // 更新当前文章的阅读数
                   Article.updateOne({ articleID: artID }, { $set: {commontNum: num+1} }, (err, doc) => {
                     if (!err) {
-                      return res.json(CODE.CODE_SUCCESS);
+                      return res.json(_C.CODE_SUCCESS);
                     } else {
-                      return res.json(CODE.CODE_ERROR);
+                      return res.json(_C.CODE_ERROR);
                     }
                   });
                 } else {
-                  return res.json(CODE.CODE_ERROR);
+                  return res.json(_C.CODE_ERROR);
                 }
               });
             } else {
-              return res.json(CODE.CODE_ARTICLE_NO_DATA);
+              return res.json(_C.CODE_ARTICLE_NO_DATA);
             }
           } else {
-            return res.json(CODE.CODE_ERROR);
+            return res.json(_C.CODE_ERROR);
           }
         })
         
@@ -57,14 +57,14 @@ Router.post('/save', (req, res) => {
         });
         msg.save((err, doc) => {
           if (!err) {
-            return res.json(CODE.CODE_SUCCESS);
+            return res.json(_C.CODE_SUCCESS);
           } else {
-            return res.json(CODE.CODE_ERROR);
+            return res.json(_C.CODE_ERROR);
           }
         });
       }
     } else {
-      return res.json(CODE.CODE_ERROR);
+      return res.json(_C.CODE_ERROR);
     }
   });
 
@@ -78,11 +78,11 @@ Router.get('/get', (req, res) => {
     Comments.find({ articleID: artID },filter, (err, doc) => {
       if (!err) {
         return res.json({
-          ...CODE.CODE_SUCCESS,
+          ..._C.CODE_SUCCESS,
           data: doc
         });
       } else {
-        return res.json(CODE.CODE_ERROR);
+        return res.json(_C.CODE_ERROR);
       }
     });
   } else {
@@ -90,11 +90,11 @@ Router.get('/get', (req, res) => {
     Msg.find({}, filter, (err, doc) => {
       if (!err) {
         return res.json({
-          ...CODE.CODE_SUCCESS,
+          ..._C.CODE_SUCCESS,
           data: doc
         });
       } else {
-        return res.json(CODE.CODE_ERROR);
+        return res.json(_C.CODE_ERROR);
       }
     });
   }

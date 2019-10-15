@@ -3,7 +3,7 @@ const Router = express.Router();
 const Model = require('../db');
 const Config = Model.getModel('configSchema');
 
-const CODE = require('../lib/constants');
+const _C = require('../lib/constants');
 const __ = require('../lib/utils');
 
 Router.get('/get', (req, res) => {
@@ -17,14 +17,14 @@ Router.get('/get', (req, res) => {
           else resObj[item.name] = item.val;
         });
         return res.json({
-          ...CODE.CODE_SUCCESS,
+          ..._C.CODE_SUCCESS,
           data: resObj
         });
       } else {
       // 无配置文件
-        return res.json(CODE.CODE_CONFIG_NO_DATA);
+        return res.json(_C.CODE_CONFIG_NO_DATA);
       }
-    } else { return res.json(CODE.CODE_ERROR) };
+    } else { return res.json(_C.CODE_ERROR) };
   })
 });
 
@@ -34,9 +34,9 @@ Router.post('/save', (req, res) => {
   for(let key in obj) {
     Config.findOneAndUpdate({ name: key }, { val: obj[key] }, (err, doc) => {
       if (!err) {
-        return res.json(CODE.CODE_SUCCESS);
+        return res.json(_C.CODE_SUCCESS);
       } else {
-        return res.json(CODE.CODE_ERROR);
+        return res.json(_C.CODE_ERROR);
       }
     })
   }

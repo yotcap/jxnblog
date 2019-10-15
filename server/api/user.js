@@ -16,7 +16,7 @@ Router.post('/add', (req, res) => {
     if (err) throw err;
     // 用户已存在
     if (doc) {
-      return res.json({ ..._C.CODE_EXISTED_USER });
+      return res.json(_C.CODE_EXISTED_USER);
     } else {
       const user = new User({
         username,
@@ -27,7 +27,7 @@ Router.post('/add', (req, res) => {
       });
       user.save((err, doc) => {
         if (err) throw err;
-        if (doc) return res.json({ ..._C.CODE_SUCCESS });
+        if (doc) return res.json(_C.CODE_SUCCESS);
       });
     }
   });
@@ -43,9 +43,9 @@ Router.post('/login', (req, res) => {
     if (err) throw err;
     // 未找到该用户
     if (!doc) {
-      return res.json({ ..._C.CODE_NO_USER });
+      return res.json(_C.CODE_NO_USER);
     } else {
-      if (pwd !== doc.pwd) return res.json({ ..._C.CODE_ERROR_PWD });
+      if (pwd !== doc.pwd) return res.json(_C.CODE_ERROR_PWD);
       const cert = fs.readFileSync(path.resolve(__dirname, '../lib/jwt.pem'));
       const token = jwt.sign({
         user: doc.username,
@@ -69,7 +69,7 @@ Router.post('/info', _U.authtoken, (req, res) => {
   User.findOne({ username: userinfo.user }, (err, doc) => {
     if (err) throw err;
     if (!doc) {
-      return res.json({ ..._C.CODE_NO_USER });
+      return res.json(_C.CODE_NO_USER);
     } else {
       return res.json({
         ..._C.CODE_SUCCESS,

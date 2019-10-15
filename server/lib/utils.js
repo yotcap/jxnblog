@@ -40,7 +40,7 @@ function authtoken (req, res, next) {
         req.userinfo = decoded;
         next();
       }
-    })
+    });
   // 未登陆
   } else {
     res.json({
