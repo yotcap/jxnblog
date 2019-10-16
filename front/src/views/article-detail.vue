@@ -84,6 +84,7 @@ export default class ArticleDetail extends Vue {
     Axios({
       url: '/comments/get',
       params: {
+        type: 'article',
         artID: this.artId,
       },
     }).then((res: any) => {

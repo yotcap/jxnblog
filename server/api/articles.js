@@ -5,7 +5,7 @@ const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 
 const _C = require('../lib/constants');
-const __ = require('../lib/utils');
+const _U = require('../lib/utils');
 
 // Article.remove({}, (err, doc) => { console.log('--- reset Article db done!')});    // 格式化
 
@@ -118,7 +118,7 @@ Router.get('/getDetail', (req, res) => {
 })
 
 // 新增文章
-Router.post('/save', (req, res) => {
+Router.post('/save', _U.authtoken, (req, res) => {
   const { content, title, type, tags, category } = req.body;
   let { summary } = req.body;
   const cacheContent = md5(content);

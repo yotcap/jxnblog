@@ -4,10 +4,10 @@ const Model = require('../db');
 const Config = Model.getModel('configSchema');
 
 const _C = require('../lib/constants');
-const __ = require('../lib/utils');
+const _U = require('../lib/utils');
 
-Router.get('/get', (req, res) => {
-  Config.find({}, {remark: 0, ...__.filter}, (err, doc) => {
+Router.get('/get', _U.authtoken, (req, res) => {
+  Config.find({}, {..._U.filter, remark: 0}, (err, doc) => {
     if (!err) {
       if (doc.length) {
         let resObj = {};
@@ -28,7 +28,7 @@ Router.get('/get', (req, res) => {
   })
 });
 
-Router.post('/save', (req, res) => {
+Router.post('/save', _U.authtoken, (req, res) => {
   // const key
   const obj = req.body;
   for(let key in obj) {

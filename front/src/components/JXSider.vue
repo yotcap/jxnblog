@@ -143,7 +143,7 @@ nav {
     margin: .2rem 0;
     padding: .5rem;
     // border-radius: 4px;
-    background-color: #eee;
+    // background-color: #eee;
   }
 }
 </style>

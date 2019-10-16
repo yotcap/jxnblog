@@ -1,4 +1,6 @@
 import Cookies from 'js-cookie'
+import Moment from 'moment'
+
 // cookie保存的天数
 import config from '@/config'
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'
@@ -396,4 +398,9 @@ export const setTitle = (routeItem, vm) => {
   const pageTitle = showTitle(handledRoute, vm)
   const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
   window.document.title = resTitle
+}
+
+export const formatterTime = (t) => {
+  if (!t) return ''
+  return Moment(t).format('YYYY-MM-DD HH:mm')
 }

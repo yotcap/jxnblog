@@ -48,6 +48,7 @@ const modules = {
     name: { type: String, require: true },
     email: { type: String, require: true },
     content: { type: String, require: true },
+    isRead: { type: Boolean, default: false },
     likeNum: { type: Number, default: 0 },
     createTime: { type: Date, default: Date.now }
   },
@@ -62,6 +63,7 @@ const modules = {
     name: { type: String, require: true },
     email: { type: String, require: true },
     content: { type: String, reuqire: true },
+    isRead: { type: Boolean, default: false },
     likeNum: { type: String, reuqire: true },
     createTime: { type: Date, default: Date.now }
   },

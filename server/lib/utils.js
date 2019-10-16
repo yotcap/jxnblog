@@ -26,15 +26,13 @@ function random (lower, upper) {
 }
 
 function authtoken (req, res, next) {
-  const token = req.body.token;
+  const token = req.cookies.token;
   if (token) {
     const cert = fs.readFileSync(path.resolve(__dirname, './jwt_pub.pem'));
     jwt.verify(token, cert, (err, decoded) =>  {
       // token失效
       if (err) {
-        res.json({
-          ..._C.CODE_PERMISSION_DENIED
-        });
+        res.json(_C.CODE_PERMISSION_DENIED);
       // 放行
       } else {
         req.userinfo = decoded;
@@ -43,9 +41,7 @@ function authtoken (req, res, next) {
     });
   // 未登陆
   } else {
-    res.json({
-      ..._C.CODE_NO_LOGIN
-    });
+    res.json(_C.CODE_NO_LOGIN);
   }
 }
 

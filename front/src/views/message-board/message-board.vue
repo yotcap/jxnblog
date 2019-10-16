@@ -26,6 +26,9 @@ export default class MessageBoard extends Vue {
   getData () {
     Axios({
       url: '/comments/get',
+      params: {
+        type: 'msg',
+      },
     }).then((res: any) => {
       console.log(res, 'get-msg-comments');
       if (res.code === 1000) {

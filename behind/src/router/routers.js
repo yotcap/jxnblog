@@ -86,6 +86,18 @@ export default [
       { path: 'config-page', name: 'config', meta: { title: 'config-page' }, component: () => import('@/view/config/config.vue') }
     ]
   },
+  // 评论留言
+  {
+    path: '/msg',
+    name: '_msg',
+    meta: {
+      title: 'msg'
+    },
+    component: Main,
+    children: [
+      { path: 'msg-page', name: 'msg', meta: { title: 'msg-page' }, component: () => import('@/view/message/message.vue') }
+    ]
+  },
   {
     path: '',
     name: 'doc',

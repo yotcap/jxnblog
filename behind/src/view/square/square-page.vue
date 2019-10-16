@@ -21,6 +21,7 @@ import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
 import { getVisitors } from '@/api/statistics'
 import { getArticleList } from '@/api/article'
+import { getDataUnreadComments } from '@/api/comments'
 
 export default {
   name: 'square_page',
@@ -28,8 +29,8 @@ export default {
     return {
       inforCardData: [
         { title: '总访问量', icon: 'md-person-add', count: 0, color: '#2d8cf0' },
-        { title: '文章总数', icon: 'md-map', count: 0, color: '#9A66E4' }
-        // { title: '累计点击', icon: 'md-locate', count: 232, color: '#19be6b' },
+        { title: '文章总数', icon: 'md-map', count: 0, color: '#9A66E4' },
+        { title: '未读消息', icon: 'md-locate', count: 0, color: '#19be6b' }
         // { title: '新增问答', icon: 'md-help-circle', count: 142, color: '#ff9900' },
         // { title: '分享统计', icon: 'md-share', count: 657, color: '#ed3f14' },
         // { title: '新增互动', icon: 'md-chatbubbles', count: 12, color: '#E46CBB' },
@@ -45,6 +46,10 @@ export default {
     getArticleList().then(res => {
       console.log(res, 'get-article-list')
       this.inforCardData[1].count = res.data.data.totalNum
+    })
+    getDataUnreadComments().then(res => {
+      console.log(res, 'get-comments-unread')
+      this.inforCardData[2].count = res.data.data.length
     })
   },
   methods: {

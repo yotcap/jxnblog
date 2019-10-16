@@ -26,7 +26,7 @@ Router.get('/access', (req, res) => {
   
 });
 
-Router.get('/all', (req, res) => {
+Router.get('/all', _U.authtoken, (req, res) => {
   let dict = {};
   let tv = 'totleVisitor';
   Statistics.findOne({ name: tv }, (err, doc) => {
