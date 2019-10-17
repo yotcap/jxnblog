@@ -2,7 +2,7 @@
   <div>
     <nav>
       <!-- start: category -->
-      <div class="nav-boxer">
+      <div class="nav-boxer" v-if="isCategory">
         <p>文章分类</p>
         <div class="underline"></div>
         <router-link 
@@ -15,7 +15,7 @@
       </div>
       <!-- end: category -->
       <!-- start: date -->
-      <div class="nav-boxer">
+      <div class="nav-boxer" v-if="isCreateTime">
         <p>存档</p>
         <div class="underline"></div>
         <!-- <a v-for="item in dataDateList" :key="item.date">{{item.date}}&nbsp;({{item.total}})</a> -->
@@ -28,7 +28,8 @@
         </router-link>
       </div>
       <!-- end: date -->
-      <div class="nav-boxer">
+      <!-- start: about -->
+      <div class="nav-boxer" v-if="isAbout">
         <p>About</p>
         <div class="underline"></div>
         <div>
@@ -37,6 +38,7 @@
         </div>
       </div>
     </nav>
+    <!-- end: about -->
     <!-- start: Drawer -->
     <Drawer
       title="JXN Blog"
@@ -59,6 +61,9 @@ import Axios from '@/lib/axios.js';
 export default class JXSider extends Vue {
   @State flagShowDrawer: boolean;
   @Mutation handleDrawerShow: any;
+  isCategory: boolean = false;    // 是否显示文章分类
+  isCreateTime: boolean = false;      // 是否显示文章按时间归档
+  isAbout: boolean = false;     // 是否显示About
   dataCategoryList: [] = [];
   dataDateList: [] = [];
   get flagDrawer () {
@@ -66,8 +71,18 @@ export default class JXSider extends Vue {
   }
   beforeMount () {
     // this.geCategoryList();
-    this.getOrderList('category');
-    this.getOrderList('createTime');
+    Axios({
+      url: '/config/get'
+    }).then((res: any) => {
+      console.log(res, 'get-config');
+      if (res.code === 1000) {
+        const data = res.data;
+        if (data.isCategory) this.getOrderList('category');
+        if (data.isCreateTime) this.getOrderList('createTime');
+        this.isAbout = data.isAbout   // ... 待开发About模块
+        console.log(data.isAbout)
+      }
+    });
   }
   geCategoryList (): void {
     Axios({
@@ -88,9 +103,11 @@ export default class JXSider extends Vue {
       switch (type) {
         case 'category':
           this.dataCategoryList = res.data;
+          this.isCategory = true;
           break;
         case 'createTime':
           this.dataDateList = res.data;
+          this.isCreateTime = true;
           break;
         default:
           console.log('durkdurkdurk');

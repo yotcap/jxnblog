@@ -4,28 +4,24 @@ const Statistics = Model.getModel('statisticsSchema');
 const Config = Model.getModel('configSchema');
 const _U = require('./utils');
 
+const isClear = false;    // 格式化库
+
 const isGenerateData = false;   // 是否制造一些假数据
 
 const numArticleStart = 0;    // 文章开始id
 const numArticleTotal = 120;    // 文章总数
 
-// (() => {
-  
-//   generateStatistics().then(() => {
-//     generateArticle().then(() => {
-//       Model.close();
-//     });
-//   });
-
-// })();
-
-initDB();
-if (isGenerateData) generateSomeData();
+if (isClear) {
+  clearDB();
+} else {
+  initDB();
+  if (isGenerateData) generateSomeData();
+}
 
 // 初始化数据库
 async function initDB () {
   try {
-    await initStatistics();
+    // await initStatistics();
     await initConfig();
     if (!isGenerateData) Model.close();
   } catch (e) {
@@ -75,26 +71,27 @@ function initStatistics () {
 
 // 初始化设置表
 function initConfig () {
-  return new Promise((resolve, rejcet) => {
+  return new Promise((resolve, reject) => {
     Config.find({}, (err, doc) => {
       if (!err) {
         if (doc.length) {
           cs('db config is not empty', 'g', 'error');
           reject();
         } else {
-          const flagComment = new Config({
-            name: 'flagComment',
-            val: 'true',
-            remark: '是否开启评论功能'
-          });
-          flagComment.save((err, doc) => {
+          const arrConfig = [
+            new Config({ name: 'flagComment', val: 'true', remark: '是否开启评论功能' }),
+            new Config({ name: 'isCategory', val: 'true', remark: '是否显示文章分类' }),
+            new Config({ name: 'isCreateTime', val: 'true', remark: '是否显示文章按时间归档' }),
+            new Config({ name: 'isAbout', val: 'true', remark: '是否显示About' }),
+          ]
+          Config.insertMany(arrConfig, (err, doc) => {
             if (!err) {
-              cs('config -- flagComment', 'g');
+              cs('config -- all', 'g');
               resolve();
             }
           });
         }
-      } else rejcet();
+      } else reject();
     })
   })
 }
@@ -139,4 +136,10 @@ function generateArticle () {
       }
     }
   });  
+}
+
+async function clearDB () {
+  // Article.remove({}, (err, doc) => cs('cleared articleDB', 'g', 'WAIN'));
+  await Config.remove({}, (err, doc) => cs('cleared configDB', 'g', 'warn'));
+  Model.close();
 }

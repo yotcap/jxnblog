@@ -6,7 +6,7 @@ const Config = Model.getModel('configSchema');
 const _C = require('../lib/constants');
 const _U = require('../lib/utils');
 
-Router.get('/get', _U.authtoken, (req, res) => {
+Router.get('/get', (req, res) => {
   Config.find({}, {..._U.filter, remark: 0}, (err, doc) => {
     if (!err) {
       if (doc.length) {
