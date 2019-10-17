@@ -17,7 +17,7 @@
       <Input class="input-large" v-model="artInfo.title" placeholder="输入标题" />
     </FormItem>
     <!-- <FormItem> -->
-      <markdown-editor v-model="content" />
+      <markdown-editor v-model="content" :value="contentVal" />
     <!-- </FormItem> -->
     <FormItem label="文章类型">
       <RadioGroup v-model="artInfo.type">
@@ -54,7 +54,7 @@
 </template>
 <script>
 import MarkdownEditor from '_c/markdown'
-import { addArticle, getCategorylist } from '@/api/article'
+import { addArticle, getCategorylist, getArticleDetail, updateArticle } from '@/api/article'
 import './creative-space.less'
 
 export default {
@@ -69,13 +69,19 @@ export default {
         summary: ''
       },
       content: ``,
+      contentVal: ``,
       cacheTag: '',
       cacheCategory: '',
       arrTag: [],
       categoryList: [],
       category: null,
       modalSubmit: false,
+      artID: ''    //  需要修改的文章ID
     }
+  },
+  beforeMount () {
+    this.artID = this.$route.query.artID
+    if (this.artID) this.getArtDetail()
   },
   mounted () {
     getCategorylist().then(res => {
@@ -85,6 +91,24 @@ export default {
     })
   },
   methods: {
+    // 获取要修改的文章详情
+    getArtDetail () {
+      getArticleDetail({
+        articleID: this.artID
+      }).then(res => {
+        const data = res.data.data;
+        console.log(data, 'get-article-detail')
+        if (res.data.code === 1000) {
+          this.artInfo = data
+          this.artInfo.type = data.type===0?'original':'reference'
+          localStorage.markdownContent = data.content
+          this.content = data.content
+          this.contentVal = data.content
+          this.category = data.category
+          this.tags = data.tags
+        }
+      })
+    },
     toSubmit () {
       if (!this.artInfo.title) {
         this.$Message.error('请输入标题')
@@ -106,19 +130,33 @@ export default {
         content: this.content,
         tags: this.arrTag,
         category: this.category,
+        type: this.artInfo.type === 'original'?0:1,
         summary:this.handleSummary(this.content)
       }
-      addArticle(art).then(res => {
-        const data = res.data
-        console.log(data, 'add-article')
-        if (data.code === 1000) {
-          this.$Message.success('发表成功！')
-          localStorage.removeItem('markdownContent')
-          this.$router.push({
-            name: this.$config.homeName
-          })
-        }
-      })
+      if (!this.artID) {
+        addArticle(art).then(res => {
+          const data = res.data
+          console.log(data, 'add-article')
+          if (data.code === 1000) {
+            this.$Message.success('发表成功！')
+            localStorage.removeItem('markdownContent')
+            this.$router.push({
+              name: this.$config.homeName
+            })
+          }
+        })
+      } else {
+        updateArticle({...art, articleID: this.artID}).then(res => {
+          const data = res.data
+          console.log(data, 'update-article')
+          if (data.code === 1000) {
+            this.$Message.success('修改文章成功！')
+            localStorage.removeItem('markdownContent')
+            this.$router.push({ name: this.$config.homeName })
+          }
+        })
+      }
+      
     },
     // 新建分类
     handleAddCategory () {

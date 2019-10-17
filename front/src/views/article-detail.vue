@@ -14,8 +14,8 @@
       toc-id="toc"
       :source="dataSource">
     </vue-markdown>
-    <div class="underline mt5"></div>
-    <div class="footer-info mt1">
+    <!-- <div class="underline mt5"></div> -->
+    <div class="footer-info mt9">
       <span class="sub-info">文章分类：</span>
       <router-link tag="a" :to="'/blog?cate='+dataDetail.category">{{dataDetail.category}}</router-link><br />
       <div class="mt-8" v-if="dataDetail.tags && dataDetail.tags.length">

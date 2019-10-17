@@ -97,7 +97,7 @@ export default class JXSider extends Vue {
       }
     });
   }
-  handleTo (opt) {
+  handleTo (opt: string) {
     this.$router.push(`/${opt}`);
     this.handleDrawerShow(false);
   }

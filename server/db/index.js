@@ -36,7 +36,7 @@ const modules = {
     category: { type: String, require: true },    // 文章分类
     tags: { type: Array },   // 标签
     readingNum: { type: Number, default: 0 },
-    commontNum: { type: Number, default: 0 },
+    commentNum: { type: Number, default: 0 },
     likeNum: { type: Number, default: 0 },
     lastModifiedTime: { type: Date, default: Date.now },
     createTime: { type: Date, default: Date.now },

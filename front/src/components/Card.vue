@@ -6,7 +6,7 @@
       <!-- <span>{{dataCard.createTime}}</span> -->
       <span>{{handleTimeFormatte(dataCard.createTime)}}</span>
       <span>阅读数&nbsp;{{dataCard.readingNum}}</span>
-      <span>{{dataCard.commontNum}}&nbsp;条评论</span>
+      <span>{{dataCard.commentNum}}&nbsp;条评论</span>
     </div>
     <div v-if="underline !== 'none'" class="underline"></div>
   </div>

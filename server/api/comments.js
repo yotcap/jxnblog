@@ -34,11 +34,11 @@ Router.post('/save', (req, res) => {
         Article.findOne({ articleID: artID }, (err, doc) => {
           if (!err) {
             if (doc) {
-              let num = doc.commontNum;
+              let num = doc.commentNum;
               com.save((err, doc) => {
                 if (!err) {
                   // 更新当前文章的阅读数
-                  Article.updateOne({ articleID: artID }, { $set: {commontNum: num+1} }, (err, doc) => {
+                  Article.updateOne({ articleID: artID }, { $set: {commentNum: num+1} }, (err, doc) => {
                     if (!err) {
                       return res.json(_C.CODE_SUCCESS);
                     } else {

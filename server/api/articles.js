@@ -124,6 +124,7 @@ Router.post('/save', _U.authtoken, (req, res) => {
   const cacheContent = md5(content);
   const articleID = 'art_' + cacheContent;
   Article.findOne({ articleID }, (err, doc) => {
+    if (err) return res.json(_C.CODE_ERROR);
     if (doc) {
       return res.json(_C.CODE_ARTICLE_DATA_REPEATE);
     } else {
@@ -142,9 +143,22 @@ Router.post('/save', _U.authtoken, (req, res) => {
       art.save((err, doc) => {
         if (!err) {
           return res.json(_C.CODE_SUCCESS);
+        } else {
+          console.log(err)
+          return res.json(_C.CODE_ERROR);
         }
       });
     }
+  });
+});
+
+Router.post('/update', _U.authtoken, (req, res) => {
+  const { articleID, content, title, type, tags, category } = req.body;
+  let { summary } = req.body;
+  if (!summary) summary = content;
+  Article.findOneAndUpdate({ articleID }, {content, title, type, tags, category, summary, }, (err, doc) => {
+    if (!err) return res.json(_C.CODE_SUCCESS);
+    else return res.json(_C.CODE_ERROR);
   });
 });
 
