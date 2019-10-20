@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const DB_URL = DB_URL_BUILD || 'mongodb://127.0.0.1:27018/jxblog';
+const DB_URL = global.DB_URL_BUILD || 'mongodb://127.0.0.1:27018/jxblog';
 
 mongoose.connection.openUri(DB_URL);
 mongoose.connection.on('connected', () => {
