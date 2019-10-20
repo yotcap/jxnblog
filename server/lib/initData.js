@@ -101,7 +101,7 @@ function generateArticle () {
   return new Promise((resolve, reject) => {
     Article.find((err, doc) => {
       if (!err) {
-        if (doc) {
+        if (doc.length) {
           cs('db article is not empty', 'g', 'error');
           reject();
         // 生成
