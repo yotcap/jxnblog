@@ -4,7 +4,7 @@ const Statistics = Model.getModel('statisticsSchema');
 const Config = Model.getModel('configSchema');
 const _U = require('./utils');
 
-const isClear = false;    // 格式化库
+const isClear = true;    // 格式化库
 
 const isGenerateData = true;   // 是否制造一些假数据
 
@@ -103,6 +103,7 @@ function generateArticle () {
       if (!err) {
         if (doc) {
           cs('db article is not empty', 'g', 'error');
+          reject();
         // 生成
         } else {
           doit();
@@ -139,7 +140,8 @@ function generateArticle () {
 }
 
 async function clearDB () {
-  // Article.remove({}, (err, doc) => cs('cleared articleDB', 'g', 'WAIN'));
+  await Article.remove({}, (err, doc) => cs('cleared articleDB', 'g', 'warn'));
   await Config.remove({}, (err, doc) => cs('cleared configDB', 'g', 'warn'));
+  await Statistics.remove({}, (err, doc) => cs('cleared statisticsDB', 'g', 'warn'));
   Model.close();
 }
