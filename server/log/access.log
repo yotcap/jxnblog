@@ -316,3 +316,7 @@
 ::1 - - [20/Oct/2019:02:58:13 +0000] "GET /comments/get HTTP/1.1" 404 151 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
 ::1 - - [20/Oct/2019:02:58:24 +0000] "GET /article/getList HTTP/1.1" 404 154 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
 ::1 - - [20/Oct/2019:02:58:37 +0000] "GET /article/getList HTTP/1.1" 404 154 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+::ffff:192.168.1.24 - - [20/Oct/2019:13:02:53 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+::ffff:192.168.1.24 - - [20/Oct/2019:13:03:08 +0000] "GET /xpi/article/getlist HTTP/1.1" 200 2704 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+::ffff:192.168.1.24 - - [20/Oct/2019:13:03:08 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "http://192.168.1.24:9090/xpi/article/getlist" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
+::ffff:192.168.1.24 - - [20/Oct/2019:13:03:52 +0000] "GET /xpi/article/getList HTTP/1.1" 200 2704 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36"
