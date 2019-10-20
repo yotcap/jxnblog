@@ -20,9 +20,10 @@ jobs:
     - name: npm install, build, and test
       run: |
         cd front
-        ls
         #npm ci
-        #yarn run build --if-present
-        yarn run build
+        yarn install
+        yarn run build --if-present
+  
+        #yarn run build
       env:
         CI: true
