@@ -3,6 +3,7 @@
     <template v-if="data.length">
       <div :class="['item', index===data.length-1?'':'underline']" v-for="(item, index) in data" :key="item.id">
         <span class="name">{{item.name}}：</span><span>{{item.content}}</span>
+        <span class="date">{{handleTimeformatter(item.createTime)}}</span>
       </div>
     </template>
     <div class="com-no-data" v-else>暂无{{words}}</div>
@@ -11,6 +12,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import Axios from '@/lib/axios.js';
+import { __timeFormatter } from '@/lib/utils';
 
 @Component
 export default class CommentsBod extends Vue {
@@ -25,6 +27,9 @@ export default class CommentsBod extends Vue {
   beforeMount () {
     if (this.$route.name === 'msg') this.words = '留言';
   }
+  handleTimeformatter (val: string) {
+    return __timeFormatter(val);
+  }
 }
 
 </script>
@@ -36,8 +41,15 @@ export default class CommentsBod extends Vue {
   padding: 0 1rem;
   .item {
     padding: 1rem 0;
+    position: relative;
     .name {
       color: #999;
+    }
+    .date {
+      .name;
+      position: absolute;
+      right: 0;
+      font-size: 0.875rem;
     }
   }
   .com-no-data {

@@ -1,5 +1,13 @@
 import Axios from '@/libs/api.request'
 
+export const getDataAllComments = () => {
+  return Axios.request({
+    url: '/comments/get',
+    params: {
+      type: 'all'
+    }
+  })
+}
 export const getDataUnreadComments = () => {
   return Axios.request({
     url: '/comments/get',

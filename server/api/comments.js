@@ -81,71 +81,93 @@ Router.post('/save', (req, res) => {
 
 Router.get('/get', (req, res) => {
   const { type, artID }=req.query;
-  // 文章评论
-  if (type === 'article') {
-    Comments.find({ articleID: artID }, {...filterC, isRead: 0}, (err, doc) => {
-      if (!err) {
-        return res.json({
-          ..._C.CODE_SUCCESS,
-          data: doc
-        });
-      } else {
-        return res.json(_C.CODE_ERROR);
-      }
-    });
-  } else if (type === 'msg') {
-  // 留言板
-    Msg.find({}, {...filter, isRead: 0}, (err, doc) => {
-      if (!err) {
-        return res.json({
-          ..._C.CODE_SUCCESS,
-          data: doc
-        });
-      } else {
-        return res.json(_C.CODE_ERROR);
-      }
-    });
-  } else if (type === 'unread') {
-  // 未读消息
-    let cacheArr = [];
-    getMsgUnread();
-    async function getMsgUnread () {
-      Comments.find({ isRead: false }, { __v: 0, email: 0 }, async (err, doc) => {
+  const sortCondition = { createTime: -1 };
+  switch (type) {
+    case 'article':     // 文章评论
+      Comments.find({ articleID: artID }, {...filterC, isRead: 0}).sort(sortCondition).exec((err, doc) => {
         if (!err) {
-          let cacheDoc = doc;
-          // if (doc) {
-          //   cacheDoc = doc.map(async item => {
-          //     await Article.findOne({ articleID: item.articleID }, (err, doc) => {
-          //       if (!err) {
-          //         console.log(1)
-          //         item.artTitle = doc.title;
-          //       } else {
-          //         console.error('[ERROR]get-article-title');
-          //       }
-          //     });
-          //   })
-          // }
-          // console.log(2);
-          cacheArr.push(...cacheDoc);
-          Msg.find({ isRead: false }, filterC, (err, doc) => {
+          return res.json({
+            ..._C.CODE_SUCCESS,
+            data: doc
+          });
+        } else {
+          return res.json(_C.CODE_ERROR);
+        }
+      });
+      break;
+    case 'msg':     // 留言板
+      Msg.find({}, {...filter, isRead: 0}).sort(sortCondition).exec((err, doc) => {
+        if (!err) {
+          return res.json({
+            ..._C.CODE_SUCCESS,
+            data: doc
+          });
+        } else {
+          return res.json(_C.CODE_ERROR);
+        }
+      });
+      break;
+    case 'unread':    // 未读消息（all）
+      let cacheArr = [];
+      getMsgUnread();
+      async function getMsgUnread () {
+        Comments.find({ isRead: false }, { __v: 0 }).sort(sortCondition).exec(async (err, doc) => {
+          if (!err) {
+            let cacheDoc = doc;
+            // if (doc) {
+            //   cacheDoc = doc.map(async item => {
+            //     await Article.findOne({ articleID: item.articleID }, (err, doc) => {
+            //       if (!err) {
+            //         console.log(1)
+            //         item.artTitle = doc.title;
+            //       } else {
+            //         console.error('[ERROR]get-article-title');
+            //       }
+            //     });
+            //   })
+            // }
+            // console.log(2);
+            cacheArr.push(...cacheDoc);
+            Msg.find({ isRead: false }, filterC).sort(sortCondition).exec((err, doc) => {
+              if (!err) {
+                cacheArr.push(...doc);
+                return res.json({
+                  ..._C.CODE_SUCCESS,
+                  data: cacheArr,
+                });
+              } else {
+                return res.json(_C.CODE_ERROR);
+              }
+            })
+          } else {
+            console.log(err);
+            return res.json(_C.CODE_ERROR);
+          }
+        });
+      }
+      break;
+    case 'all':
+      Comments.find({},  { __v: 0 }).sort(sortCondition).exec((err, doc) => {
+        if (!err) {
+          let cacheArr = doc;
+          Msg.find({}, {__v:0}).sort(sortCondition).exec((err, doc1) => {
             if (!err) {
-              cacheArr.push(...doc);
+              cacheArr.push(...doc1);
               return res.json({
                 ..._C.CODE_SUCCESS,
-                data: cacheArr
+                data: cacheArr,
               });
             } else {
               return res.json(_C.CODE_ERROR);
             }
-          })
+          });
         } else {
-          console.log(err);
           return res.json(_C.CODE_ERROR);
         }
-      });
-    }
-  } else {
-    return res.json(_C.CODE_ERROR);
+      })
+      break;
+    default:
+      return res.json(_C.CODE_COMMENT_NO_TYPE);
   }
 });
 

@@ -72,15 +72,14 @@ export default class JXSider extends Vue {
   beforeMount () {
     // this.geCategoryList();
     Axios({
-      url: '/config/get'
+      url: '/config/get',
     }).then((res: any) => {
       console.log(res, 'get-config');
       if (res.code === 1000) {
         const data = res.data;
         if (data.isCategory) this.getOrderList('category');
         if (data.isCreateTime) this.getOrderList('createTime');
-        this.isAbout = data.isAbout   // ... 待开发About模块
-        console.log(data.isAbout)
+        this.isAbout = data.isAbout;   // ... 待开发About模块
       }
     });
   }

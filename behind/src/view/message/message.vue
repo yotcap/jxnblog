@@ -1,10 +1,13 @@
 <template>
   <div>
-    <Table border ref="selection" :columns="columns" :data="dataMsg"></Table>
+    <Table border ref="selection" :columns="columns" :data="dataMsg" />
+    <Divider />
+    <h2>所有留言</h2>
+    <Table bordre :columns="columns" :data="dataMsgAll" />
   </div>
 </template>
 <script>
-import { getDataUnreadComments, setIsRead, delComments } from '@/api/comments'
+import { getDataUnreadComments, getDataAllComments, setIsRead, delComments } from '@/api/comments'
 import { formatterTime } from '@/libs/util'
 
 export default {
@@ -19,11 +22,15 @@ export default {
         },
         {
           title: 'name',
-          key: 'name',
+          key: 'name'
         },
         {
           title: 'content',
           key: 'content'
+        },
+        {
+          title: 'email',
+          key: 'email',
         },
         {
           title: 'from',
@@ -37,7 +44,7 @@ export default {
                   }
                 }
               }
-            }, (function(params){
+            }, (function (params) {
               if (!params.row.articleID) return 'MSG'
               else return params.row.articleID
             })(params))
@@ -55,13 +62,17 @@ export default {
           title: 'Action',
           key: 'action',
           align: 'center',
-          width: 100,
+          width: 150,
           render: (h, params) => {
             return h('div', [
               h('Button', {
                 props: {
                   type: 'primary',
                   size: 'small'
+                },
+                style: {
+                  marginRight: '5px',
+                  display: params.row.isRead?'none':''
                 },
                 on: {
                   click: () => {
@@ -84,7 +95,8 @@ export default {
           }
         }
       ],
-      dataMsg: []
+      dataMsg: [],
+      dataMsgAll: []
     }
   },
   beforeMount () {
@@ -95,6 +107,10 @@ export default {
       getDataUnreadComments().then(res => {
         console.log(res, 'get-comments-unread')
         this.dataMsg = res.data.data
+      })
+      getDataAllComments().then(res => {
+        console.log(res, 'get-comments-all')
+        this.dataMsgAll = res.data.data
       })
     },
     handleRead (row) {
@@ -112,7 +128,6 @@ export default {
           this.$Message.success('isRead success')
           this.getData()
         }
-
       })
     },
     handleDel (row) {
