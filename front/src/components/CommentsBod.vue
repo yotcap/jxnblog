@@ -28,7 +28,7 @@ export default class CommentsBod extends Vue {
     if (this.$route.name === 'msg') this.words = '留言';
   }
   handleTimeformatter (val: string) {
-    return __timeFormatter(val);
+    return __timeFormatter(val, '-');
   }
 }
 

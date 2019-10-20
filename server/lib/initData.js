@@ -6,10 +6,10 @@ const _U = require('./utils');
 
 const isClear = false;    // 格式化库
 
-const isGenerateData = false;   // 是否制造一些假数据
+const isGenerateData = true;   // 是否制造一些假数据
 
 const numArticleStart = 0;    // 文章开始id
-const numArticleTotal = 120;    // 文章总数
+const numArticleTotal = 5;    // 文章总数
 
 if (isClear) {
   clearDB();
@@ -21,7 +21,7 @@ if (isClear) {
 // 初始化数据库
 async function initDB () {
   try {
-    // await initStatistics();
+    await initStatistics();
     await initConfig();
     if (!isGenerateData) Model.close();
   } catch (e) {
