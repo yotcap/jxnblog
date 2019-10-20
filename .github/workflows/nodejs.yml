@@ -22,6 +22,7 @@ jobs:
         cd front
         ls
         #npm ci
-        yarn run build --if-present
+        #yarn run build --if-present
+        yarn run build
       env:
         CI: true
