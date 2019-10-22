@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-global.DB_URL_BUILD = 'mongodb://jxn:jxncap1.0@127.0.0.1:27017/jxndb';
 const DB_URL = global.DB_URL_BUILD || 'mongodb://127.0.0.1:27018/jxblog';
 
 mongoose.connection.openUri(DB_URL);
@@ -32,6 +31,7 @@ const modules = {
     title: { type: String, require: true },
     summary: { type: String },
     content: { type: String, require: true },
+    isShow: { type: Boolean, default: true },   // 是否可见
     type: { type: Number, require: true },    // 文章类型：  0 原创    1 转载
     category: { type: String, require: true },    // 文章分类
     tags: { type: Array },   // 标签

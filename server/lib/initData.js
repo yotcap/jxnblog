@@ -1,3 +1,4 @@
+global.DB_URL_BUILD = 'mongodb://jxn:jxncap@1.0@127.0.0.1:27017/jxndb';
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 const Statistics = Model.getModel('statisticsSchema');

@@ -7,11 +7,9 @@ const Article = Model.getModel('articleSchema');
 const _C = require('../lib/constants');
 const _U = require('../lib/utils');
 
-// Article.remove({}, (err, doc) => { console.log('--- reset Article db done!')});    // 格式化
-
 // 查询列表
 Router.get('/getList', (req, res) => {
-  let { pageSize, page, condition, date, cate } = req.query;
+  let { pageSize, page, condition, date, cate, from } = req.query;
   if (!pageSize) pageSize = 10;
   if (!page) page = 1;
   const shipNum = (page - 1) * pageSize;
@@ -33,6 +31,14 @@ Router.get('/getList', (req, res) => {
       }
     };
   }
+  if (from !== 'admin') {
+    // searchCondition['isShow'] = true;
+    searchCondition = {
+      ...searchCondition,
+      isShow: true
+    }
+  }
+  // searchCondition['isShow']
   Article.find({...searchCondition}, (err, doc) => {
     if (!err) {
       totalNum = doc.length;
@@ -159,6 +165,28 @@ Router.post('/update', _U.authtoken, (req, res) => {
   Article.findOneAndUpdate({ articleID }, {content, title, type, tags, category, summary, }, (err, doc) => {
     if (!err) return res.json(_C.CODE_SUCCESS);
     else return res.json(_C.CODE_ERROR);
+  });
+});
+
+// 显示/隐藏文章
+Router.post('/switchShow', _U.authtoken, (req, res) => {
+  const { articleID, val } = req.body;
+  Article.findOne({ articleID }, (err, doc) => {
+    if (!err) {
+      if (!doc) {
+        return res.json(_C.CODE_ARTICLE_NO_DATA);
+      } else {
+        Article.findOneAndUpdate({ articleID }, { isShow: val }, (err, doc) => {
+          if (!err) {
+            return res.json(_C.CODE_SUCCESS);
+          } else {
+            return res.json(_C.CODE_ERROR);
+          }
+        });
+      }
+    } else {
+      return res.json(_C.CODE_ERROR);
+    }
   });
 });
 

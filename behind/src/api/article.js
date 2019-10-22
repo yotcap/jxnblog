@@ -46,3 +46,11 @@ export const delArticle = (data) => {
     data
   })
 }
+
+export const swtichShowArticle = (data) => {
+  return Axios.request({
+    url: '/article/switchShow',
+    method: 'post',
+    data
+  })
+}

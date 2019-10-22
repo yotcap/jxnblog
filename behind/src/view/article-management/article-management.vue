@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import { getArticleList, delArticle } from '@/api/article'
+import { getArticleList, delArticle, swtichShowArticle } from '@/api/article'
 import { formatterTime } from '@/libs/util'
 
 export default {
@@ -38,9 +38,23 @@ export default {
         {
           title: 'Action',
           key: 'action',
-          width: 150,
+          width: 200,
           render: (h, params) => {
             return h('div', [
+              h('i-switch', {
+                props: {
+                  type: 'small',
+                  value: params.row.isShow
+                },
+                style: {
+                  marginRight: '5px'
+                },
+                on: {
+                  'on-change': e => {
+                    this.handleSwtichIsShow(e, params.row)
+                  }
+                }
+              }),
               h('Button', {
                 props: {
                   type: 'primary',
@@ -89,7 +103,10 @@ export default {
   },
   methods: {
     getData (params) {
-      getArticleList(params).then(res => {
+      getArticleList({
+        ...params,
+        from: 'admin'
+      }).then(res => {
         const data = res.data
         console.log(data, 'get-article-list')
         if (data.code === 1000) {
@@ -113,6 +130,18 @@ export default {
     handleChangePage (val) {
       this.getData({
         page: val
+      })
+    },
+    handleSwtichIsShow (val, row) {
+      console.log(val, row)
+      swtichShowArticle({
+        articleID: row.articleID,
+        val
+      }).then(res => {
+        const data = res.data
+        if (data.code === 1000) {
+          this.$Message.success(`${val?'显示':'隐藏'}文章操作成功`)
+        }
       })
     }
   }
