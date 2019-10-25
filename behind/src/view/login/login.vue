@@ -4,12 +4,12 @@
 
 <template>
   <div class="login">
-    <Button @click="handleAdduser">Add a super</Button>
+    <!-- <Button @click="handleAdduser">Add a super</Button> -->
     <div class="login-con">
-      <Card icon="log-in" title="欢迎登录" :bordered="false">
+      <Card icon="log-in" title="登录" :bordered="false">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit"></login-form>
-          <p class="login-tip">输入任意用户名和密码即可</p>
+          <!-- <p class="login-tip">输入任意用户名和密码即可</p> -->
         </div>
       </Card>
     </div>

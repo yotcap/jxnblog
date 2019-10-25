@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const md5 = require('js-md5');
 const jwt = require('jsonwebtoken');
 const Router = express.Router();
 const Model = require('../db/index');
@@ -31,9 +32,6 @@ Router.post('/add', (req, res) => {
       });
     }
   });
-  // const token = jwt.sign({
-
-  // });
 });
 
 // login
@@ -45,7 +43,7 @@ Router.post('/login', (req, res) => {
     if (!doc) {
       return res.json(_C.CODE_NO_USER);
     } else {
-      if (pwd !== doc.pwd) return res.json(_C.CODE_ERROR_PWD);
+      if (md5(pwd) !== doc.pwd) return res.json(_C.CODE_ERROR_PWD);
       const cert = fs.readFileSync(path.resolve(__dirname, '../lib/jwt.pem'));
       const token = jwt.sign({
         user: doc.username,
