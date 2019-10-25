@@ -39,9 +39,7 @@ export default {
             return h('a', {
               on: {
                 click: () => {
-                  if (params.row.articleID) {
-                    // ...
-                  }
+                  if (params.row.articleID) window.open(`http://47.240.60.99/detail/${params.row.articleID}`);
                 }
               }
             }, (function (params) {
