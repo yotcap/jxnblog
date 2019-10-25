@@ -39,7 +39,8 @@ export default {
             return h('a', {
               on: {
                 click: () => {
-                  if (params.row.articleID) window.open(`http://47.240.60.99/detail/${params.row.articleID}`);
+                  if (params.row.articleID) window.open(`${this.$config.frontUrl}/detail/${params.row.articleID}`)
+                  else window.open(`${this.$config.frontUrl}/msg`)
                 }
               }
             }, (function (params) {
