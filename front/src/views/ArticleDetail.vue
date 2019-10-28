@@ -8,13 +8,31 @@
     <div class="underline mt-3 mb-8"></div>
     <!-- <div id="toc">toctoc</div> -->
     <vue-markdown
-      class="line-numbers language-markup"
+      class="line-numbers language-markup theme-github"
       :watches="['toc']"
       :toc="flagToc"
       toc-id="toc"
       :source="dataSource">
     </vue-markdown>
-    <!-- <div class="underline mt5"></div> -->
+    <!-- <div v-highlight>
+      <h2 id="h2">h2</h2>
+      <h2 id="">:)</h2>
+      <pre><code class="language-javascript">  console.log(&#39;hello&#39;);</code></pre>
+      <table>
+      <thead>
+      <tr>
+      <th>c1</th>
+      <th>c2</th>
+      <th>c3</th>
+      </tr>
+      </thead>
+      <tbody><tr>
+      <td>r1</td>
+      <td>r2</td>
+      <td>r3</td>
+      </tr>
+      </tbody></table>
+    </div> -->
     <div class="footer-info mt9">
       <span class="sub-info">文章分类：</span>
       <router-link tag="a" :to="'/blog?cate='+dataDetail.category">{{dataDetail.category}}</router-link><br />
@@ -35,11 +53,24 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Axios from '@/lib/axios.js';
 import VueMarkdown from 'vue-markdown';
-import Prism from 'prismjs';
+// import Prism from 'prismjs';
+// import marked from 'marked';
+// import hljs from 'highlight.js/lib/highlight';
+// import 'highlight.js/styles/github.css';
+// import javascript from 'highlight.js/lib/languages/javascript';
+
 import MsgBod from '@/components/MsgBod.vue';
 import ComBod from '@/components/CommentsBod.vue';
 import Tag from '@/components/Tag.vue';
 import { __timeFormatter } from '@/lib/utils';
+import '@/assets/css/theme-github.less';
+
+// Vue.directive('highlight',function (el) {
+//   let blocks = el.querySelectorAll('pre code');
+//   blocks.forEach((block)=>{
+//     hljs.highlightBlock(block);
+//   });
+// });
 
 @Component({
   components: {
@@ -55,6 +86,9 @@ export default class ArticleDetail extends Vue {
   private dataDetail: object = {};
   private dataSource: string = '';
   private dataCom: [] = [];   // 留言
+  // get res () {
+  //   return marked(this.dataSource)
+  // }
   beforeMount () {
     this.artId = this.$route.path.split('/')[2];
     this.getData(this.artId);
@@ -62,7 +96,8 @@ export default class ArticleDetail extends Vue {
   }
   mounted () {
     // this.flagToc = true;
-    Prism.highlightAll();
+    // Prism.highlightAll();
+    // hljs.initHighlighting();
   }
   getData (id: string) {
     Axios({
@@ -76,7 +111,9 @@ export default class ArticleDetail extends Vue {
       this.dataDetail = res.data;
       setTimeout(() => {
         // this.flagToc = true;
-        Prism.highlightAll();
+        // Prism.highlightAll();
+
+        // hljs.initHighlighting();
       }, 0);
     });
   }
