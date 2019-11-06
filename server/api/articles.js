@@ -190,4 +190,15 @@ Router.post('/switchShow', _U.authtoken, (req, res) => {
   });
 });
 
+Router.post('/del', _U.authtoken, (req, res) => {
+  const { articleID } = req.body;
+  Article.findOneAndDelete({ articleID }, (err, doc) => {
+    if (err) {
+      return res.json(_C.CODE_ERROR);
+    } else {
+      return res.json(_C.CODE_SUCCESS);
+    }
+  })
+});
+
 module.exports = Router;

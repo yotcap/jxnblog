@@ -35,5 +35,5 @@ export default {
       developmentOff: true // 设为true后在开发环境不会收集错误信息，方便开发中排查错误
     }
   },
-  frontUrl: 'http://47.240.60.99' // 前端页面地址
+  frontUrl: 'http://139.199.37.57' // 前端页面地址
 }
