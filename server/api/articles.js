@@ -162,7 +162,7 @@ Router.post('/update', _U.authtoken, (req, res) => {
   const { articleID, content, title, type, tags, category } = req.body;
   let { summary } = req.body;
   if (!summary) summary = content;
-  Article.findOneAndUpdate({ articleID }, {content, title, type, tags, category, summary, }, (err, doc) => {
+  Article.findOneAndUpdate({ articleID }, {content, title, type, tags, category, summary, lastModifiedTime: Date.now()}, (err, doc) => {
     if (!err) return res.json(_C.CODE_SUCCESS);
     else return res.json(_C.CODE_ERROR);
   });
