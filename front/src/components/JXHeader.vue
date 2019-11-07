@@ -1,7 +1,7 @@
 <template>
   <header>
     <Row type="flex" align="middle" justify="space-between" class="container">
-      <Col :xs="{ offset: 1 }" :lg="{ offset: 0 }"><span class="main-pa cursor" @click="handleTo('home')">JXN</span></Col>
+      <Col :xs="{ offset: 1 }" :lg="{ offset: 0 }"><span class="main-pt main-pb main-pr cursor" @click="handleTo('home')">JXN</span></Col>
       <Input class="search-input" placeholder="搜索文章" search enter-button @on-search="handleSearch" />
       <Col :xs="{ pull: 1 }" v-if="flagShowMenuIcon">
         <i class="iconfont icon-menu cursor" @click="handleShowMenu" />

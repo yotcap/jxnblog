@@ -50,6 +50,7 @@ a {
 .main-ma { margin: @main-spacing; }
 .main-pt { padding-top: @main-spacing; }
 .main-pb { padding-bottom: @main-spacing; }
+.main-pr { padding-right: @main-spacing; }
 .main-pa { padding: @main-spacing; }
 
 .m-center {
@@ -113,9 +114,13 @@ header {
   }
 }
 footer {
-  text-align: center;
   color: @color-white;
   background: @color-bg-header;
+  a {
+    display: inline-flex;
+    align-items: center;
+    color: @color-white;
+  }
 }
 
 /**
