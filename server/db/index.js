@@ -32,6 +32,8 @@ const modules = {
     summary: { type: String },
     content: { type: String, require: true },
     isShow: { type: Boolean, default: true },   // 是否可见
+    isTop: { type: Boolean, default: false },     // 是否置顶
+    // isDel: { type: Boolean, default: false },     // 是否已删除，不提供彻底删除
     type: { type: Number, require: true },    // 文章类型：  0 原创    1 转载
     category: { type: String, require: true },    // 文章分类
     tags: { type: Array },   // 标签

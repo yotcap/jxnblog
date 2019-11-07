@@ -3,6 +3,7 @@ const md5 = require('js-md5');
 const Router = express.Router();
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
+const Comments = Model.getModel('commentsSchema');
 
 const _C = require('../lib/constants');
 const _U = require('../lib/utils');
@@ -38,7 +39,6 @@ Router.get('/getList', (req, res) => {
       isShow: true
     }
   }
-  // searchCondition['isShow']
   Article.find({...searchCondition}, (err, doc) => {
     if (!err) {
       totalNum = doc.length;
@@ -190,15 +190,21 @@ Router.post('/switchShow', _U.authtoken, (req, res) => {
   });
 });
 
+// 删除文章
 Router.post('/del', _U.authtoken, (req, res) => {
   const { articleID } = req.body;
   Article.findOneAndDelete({ articleID }, (err, doc) => {
     if (err) {
       return res.json(_C.CODE_ERROR);
     } else {
-      return res.json(_C.CODE_SUCCESS);
+      Comments.remove({ articleID }, (err, doc) => {
+        if (err) return res.json(_C.CODE_ERROR);
+        else {
+          return res.json(_C.CODE_SUCCESS);
+        }
+      });
     }
-  })
+  });
 });
 
 module.exports = Router;
