@@ -3,10 +3,10 @@
     <JXHeader></JXHeader>
     <div class="boxer">
       <Row class="container">
-        <Col :xs="{ span: 0 }" :lg="{ span: 6 }">
+        <Col :xs="{ span: 0 }" :lg="{ span: 5 }">
           <JXSider></JXSider>
         </Col>
-        <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 17, offset: 1 }">
+        <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 18, offset: 1 }">
           <section>
             <transition name="fade" mode="out-in">
               <router-view />
