@@ -52,8 +52,21 @@ filter = {
   lastModifiedTime: 0
 }
 
+// 创建物理地址
+const createFolder = (folder) => {
+  if (!folder) return false;
+  const p = path.join(path.resolve(__dirname, '..'), folder);
+  try {
+    fs.existsSync(p) || fs.mkdirSync(p);
+    return p;
+  } catch (err) {
+
+  }
+}
+
 module.exports = __ = {
   random,
   authtoken,
   filter,
+  createFolder,
 }

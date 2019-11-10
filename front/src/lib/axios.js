@@ -70,14 +70,19 @@ axios.interceptors.response.use(function (response) {
     }
   } else {
     Message.error({
-      content: WORDS_NET_ERROR,
+      content: response.data.msg,
       duration: 2,
     });
   }
 }, function (error) {
+  // const errMsg = error.toString();
+  // const code = errMsg.substr(errMsg.indexOf('code') + 5);
+  // if (code === '500') {
+  //   // ...
+  // }
   Message.error({
     content: WORDS_NET_ERROR,
-    duration: 2,
+    duration: 3.6,
   });
   // 对响应错误做点什么
   return Promise.reject(error);

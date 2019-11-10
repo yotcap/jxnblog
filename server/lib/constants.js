@@ -10,7 +10,7 @@ const CODE_CONFIG_NO_DATA = { code: 1008, msg: '无配置文件' };
 const CODE_ARTICLE_DATA_REPEATE = { code: 3001, msg: '文章已存在' };
 const CODE_ARTICLE_NO_DATA = { code: 3002, msg: '文章不存在' };
 const CODE_COMMENT_NO_TYPE = { code: 3003, msg: '请选择要查询的类型' };
-const CODE_ERROR = { code: 5000, msg: '服务器错误' };
+const CODE_ERROR = { code: 5000, msg: 'Sorry，服务器错误，请联系管理员' };
 
 module.exports =  {
   CODE_SUCCESS,
