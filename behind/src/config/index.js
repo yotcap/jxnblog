@@ -35,5 +35,7 @@ export default {
       developmentOff: true // 设为true后在开发环境不会收集错误信息，方便开发中排查错误
     }
   },
-  frontUrl: 'http://139.199.37.57' // 前端页面地址
+  frontUrl: 'http://139.199.37.57', // 前端页面地址
+  uploadUrl: 'http://192.168.3.45:9090/xpi/upload/up', // 上传地址
+  maxFileSize: 102400000 // 上传文件最大值
 }

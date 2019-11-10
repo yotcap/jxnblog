@@ -50,10 +50,22 @@
     <div>确认发表？</div>
   </Modal>
   <!-- end: Modal 确认发表 -->
+  <!-- start: upload -->
+  <div class="upload-boxer" title="上传图片" @click="flagShowUpload=true">
+    <Icon type="md-images" />
+    <Modal
+        v-model="flagShowUpload"
+        title="上传图片">
+        <upload-model />
+    </Modal>
+    
+  </div>
+  <!-- end: upload -->
 </div>
 </template>
 <script>
 import MarkdownEditor from '_c/markdown'
+import UploadModel from '_c/upload-model/upload-model.vue'
 import { addArticle, getCategorylist, getArticleDetail, updateArticle } from '@/api/article'
 import './creative-space.less'
 
@@ -62,6 +74,7 @@ export default {
   data () {
     return {
       show: true,
+      flagShowUpload: false, // 是否显示 Upload Model
       title: '',
       artInfo: {
         title: '',
@@ -76,7 +89,7 @@ export default {
       categoryList: [],
       category: null,
       modalSubmit: false,
-      artID: ''    //  需要修改的文章ID
+      artID: '' // 需要修改的文章ID
     }
   },
   beforeMount () {
@@ -96,11 +109,11 @@ export default {
       getArticleDetail({
         articleID: this.artID
       }).then(res => {
-        const data = res.data.data;
+        const data = res.data.data
         console.log(data, 'get-article-detail')
         if (res.data.code === 1000) {
           this.artInfo = data
-          this.artInfo.type = data.type===0?'original':'reference'
+          this.artInfo.type = data.type === 0 ? 'original' : 'reference'
           localStorage.markdownContent = data.content
           this.content = data.content
           this.contentVal = data.content
@@ -130,8 +143,8 @@ export default {
         content: this.content,
         tags: this.arrTag,
         category: this.category,
-        type: this.artInfo.type === 'original'?0:1,
-        summary:this.handleSummary(this.content)
+        type: this.artInfo.type === 'original' ? 0 : 1,
+        summary: this.handleSummary(this.content)
       }
       if (!this.artID) {
         addArticle(art).then(res => {
@@ -146,7 +159,7 @@ export default {
           }
         })
       } else {
-        updateArticle({...art, articleID: this.artID}).then(res => {
+        updateArticle({ ...art, articleID: this.artID }).then(res => {
           const data = res.data
           console.log(data, 'update-article')
           if (data.code === 1000) {
@@ -156,7 +169,6 @@ export default {
           }
         })
       }
-      
     },
     // 新建分类
     handleAddCategory () {
@@ -248,7 +260,8 @@ export default {
     }
   },
   components: {
-    MarkdownEditor
+    MarkdownEditor,
+    UploadModel
   }
 }
 </script>
@@ -291,5 +304,22 @@ export default {
 }
 .input-large {
   max-width: 40rem;
+}
+.upload-boxer {
+  padding: .5rem;
+  position: absolute;
+  right: 3rem;
+  bottom: 8rem;
+  border-radius: 6px;
+  background: #eee;
+  z-index: 1;
+  transition: .5s background-color;
+  &:hover {
+    background: #ccc;
+    cursor: pointer;
+  }
+  > i {
+    font-size: 2rem;
+  }
 }
 </style>
