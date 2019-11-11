@@ -53,13 +53,12 @@
   <!-- start: upload -->
   <div class="upload-boxer" title="上传图片" @click="flagShowUpload=true">
     <Icon type="md-images" />
-    <Modal
-        v-model="flagShowUpload"
-        title="上传图片">
-        <upload-model />
-    </Modal>
-    
   </div>
+  <Modal
+    v-model="flagShowUpload"
+    title="上传图片">
+    <upload-model />
+  </Modal>
   <!-- end: upload -->
 </div>
 </template>
