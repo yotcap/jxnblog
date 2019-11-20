@@ -1,4 +1,4 @@
-# JXN个人博客的管理端
+# JXN个人博客的用户端
 ## Getting started
 ```bash
 # clone the project

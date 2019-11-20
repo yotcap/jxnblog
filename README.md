@@ -3,10 +3,10 @@
 
 用来练手技能的项目，后期会持续尝试新技术不断优化。
 
-JS实现的全栈开发，用户端和管理端基于Vuejs+Typescript，后端基于Nodejs+Express+MongoDB。
+JS实现的全栈开发，用户端和管理端基于Vuejs+Typescript，UI库为iView，后端基于Nodejs+Express+MongoDB。
 
 ## 项目结构
-> ├─ front     // 用户端  
-> ├─ behind    // 管理端  
-> ├─ server    // 服务端  
+> ├- front     // 用户端  
+> ├- behind    // 管理端  
+> ├- server    // 服务端  
 
