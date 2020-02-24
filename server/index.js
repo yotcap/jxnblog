@@ -8,6 +8,7 @@ const rfs = require('rotating-file-stream');
 const app = new express();
 const server = require('http').Server(app);
 
+require('./config');
 const RouterArticle = require('./api/articles');
 const RouterUser = require('./api/user');
 const RouterStatistics = require('./api/statistics');
@@ -34,11 +35,10 @@ const errorLogStream = rfs('error.log', {
 });
 
 app.all('*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://yotcap.top:8086');
-  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  // res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-  // res.header("X-Powered-By",' 3.2.1');
-  res.header("Content-Type", "application/json;charset=utf-8");
+  res.header('Access-Control-Allow-Origin', process.env.NODE_ENV==='production'?global.DOMAIN:'*');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Cache-Control');
+  res.header('Access-Control-Allow-Methods', '*');
+  res.header('Content-Type', 'application/json;charset=utf-8');
   next();
 });
 
@@ -55,6 +55,7 @@ app.use(BASE_PATH+'/static', (req, res, next) => {
     res.setHeader('Content-Type', 'image/jpg, image/png');
     next();
   }, RouterStaticFiles.static);
+app.use(BASE_PATH+'/flowers', RouterStaticFiles.routerFlowers);
 app.use(compression());   // 启用gzip压缩
 
 // 错误日志
@@ -67,5 +68,5 @@ app.use((err, req, res, next) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Is started in ${PORT}`);
+  console.log(`Is started in ${server.address().address}:${PORT}`);
 });

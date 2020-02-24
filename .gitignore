@@ -3,6 +3,7 @@ node_modules
 server/config.js
 server/uploadFiles/*
 server/log/*
+dist
 
 # local env files
 .env.local

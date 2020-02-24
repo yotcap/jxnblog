@@ -110,6 +110,19 @@ export default [
       { path: 'article-center', name: 'article', meta: { title: 'article-management' }, component: () => import('@/view/article-management/article-management.vue') }
     ]
   },
+  {
+    path: '/flowers',
+    name: '_flowers',
+    component: Main,
+    children: [
+      {
+        path: 'flowers_page',
+        name: 'flowers',
+        meta: { title: '百花齊放' },
+        component: () => import('@/view/flowers/flowers.vue')
+      }
+    ]
+  },
   // {
   //   path: '',
   //   name: 'doc',

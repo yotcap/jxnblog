@@ -35,10 +35,10 @@ export default {
       developmentOff: true // 设为true后在开发环境不会收集错误信息，方便开发中排查错误
     }
   },
-  frontUrl: 'http://139.199.37.57', // 前端页面地址
+  frontUrl: 'http://bing.com', // 前端页面地址
   uploadUrl: {
-    dev: 'http://192.168.3.45:9090/xpi/upload/up',
-    pro: 'http://yotcap.top:9090/xpi/upload/up'
+    dev: 'http://localhost:9090/xpi/upload/up',
+    pro: 'http://localhost:9090/xpi/upload/up'
   },
   maxFileSize: 102400000 // 上传文件最大值
 }

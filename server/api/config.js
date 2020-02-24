@@ -29,7 +29,6 @@ Router.get('/get', (req, res) => {
 });
 
 Router.post('/save', _U.authtoken, (req, res) => {
-  // const key
   const obj = req.body;
   for(let key in obj) {
     Config.findOneAndUpdate({ name: key }, { val: obj[key] }, (err, doc) => {

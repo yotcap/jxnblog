@@ -43,7 +43,7 @@ Router.post('/login', (req, res) => {
     if (!doc) {
       return res.json(_C.CODE_NO_USER);
     } else {
-      if (md5(pwd) !== doc.pwd) return res.json(_C.CODE_ERROR_PWD);
+      if (md5(pwd).toUpperCase() !== doc.pwd) return res.json(_C.CODE_ERROR_PWD);
       const cert = fs.readFileSync(path.resolve(__dirname, '../lib/jwt.pem'));
       const token = jwt.sign({
         user: doc.username,

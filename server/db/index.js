@@ -80,6 +80,19 @@ const modules = {
     name: { type: String, reuqire: true },
     val: { type: Number, default: 0 },
     remark: { type: String }
+  },
+  // static file info
+  staticFileSchema: {
+    key: { type: String, require: true },
+    filename: { type: String, require: true },
+    filePath: { type: String, require: true },
+    fileMimeType: { type: String },
+    fileSize: { type: Number },
+    fileEncoding: { type: String },
+    fileDestination: { type: String },
+    fileOriginalName: { type: String },
+    remark: { type: String },
+    createTime: { type: Date, default: Date.now }
   }
 }
 

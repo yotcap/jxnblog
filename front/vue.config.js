@@ -27,14 +27,16 @@ module.exports = {
     return {
       plugins: [
         new prerenderSPAPlugin({
-          staticDir: path.join(__dirname, 'dist'),
-          routes: ['/blog', '/about'],
-          renderer: new Renderer({
+          staticDir: path.join(__dirname, '../dist'),
+          // routes: ['blog', '/about'],
+          // renderer: new Renderer({
+          renderer: new prerenderSPAPlugin.PuppeteerRenderer({
             inject: {
               foo: 'bar'
             },
             headless: false,
-            renderAfterDocumentEvent: 'render-event'
+            renderAfterDocumentEvent: 'render-event',
+            renderAfterTime: 5000
           })
         }),
       ]

@@ -1,11 +1,12 @@
 global.DB_URL_BUILD = 'mongodb://jxn:jxncap1.0@127.0.0.1:27017/jxndb';
+const md5 = require('js-md5');
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 const Statistics = Model.getModel('statisticsSchema');
 const Config = Model.getModel('configSchema');
 const _U = require('./utils');
 
-const isClear = true;    // 格式化库
+const isClear = false;    // 格式化库
 
 const isGenerateData = true;   // 是否制造一些假数据
 
