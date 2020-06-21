@@ -7,13 +7,13 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // {
+    //   path: '/',
+    //   name: 'JXN',
+    //   redirect: '/blog',
+    // },
     {
       path: '/',
-      name: 'JXN',
-      redirect: '/blog',
-    },
-    {
-      path: '/blog',
       name: 'entrancy',
       // component: () => import('@/views/Entrance.vue'),
       component: () => import('@/views/Home.vue'),

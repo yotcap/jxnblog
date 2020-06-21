@@ -38,7 +38,8 @@ export default {
   frontUrl: 'http://bing.com', // 前端页面地址
   uploadUrl: {
     dev: 'http://localhost:9090/xpi/upload/up',
-    pro: 'http://localhost:9090/xpi/upload/up'
+    // pro: 'http://localhost:9090/xpi/upload/up'
+    pro: 'http://yotcap.top:9090/xpi/upload/up'
   },
   maxFileSize: 102400000 // 上传文件最大值
 }

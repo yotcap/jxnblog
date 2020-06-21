@@ -3,6 +3,7 @@ const Renderer = prerenderSPAPlugin.PuppeteerRenderer;
 const path = require('path');
 
 module.exports = {
+  publicPath: '/blog/',
   css: {
     loaderOptions: {
       less: {

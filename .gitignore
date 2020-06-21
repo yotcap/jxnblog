@@ -4,6 +4,8 @@ server/config.js
 server/uploadFiles/*
 server/log/*
 dist
+dist.zip
+behind.zip
 
 # local env files
 .env.local
