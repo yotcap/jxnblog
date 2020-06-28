@@ -37,6 +37,11 @@ export default class Entrance extends Vue {
   beforeMount () {
     this.handleAccess();
   }
+
+  mounted () {
+    document.body.removeChild(document.querySelector('#loadinginitial'));
+  }
+
   handleAccess () {
     Axios({
       url: '/statistics/access',
