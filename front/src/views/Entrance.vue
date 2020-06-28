@@ -39,7 +39,7 @@ export default class Entrance extends Vue {
   }
 
   mounted () {
-    document.body.removeChild(document.querySelector('#loadinginitial'));
+    document.body.removeChild(document.querySelector('#loadinginitial')!);
   }
 
   handleAccess () {
