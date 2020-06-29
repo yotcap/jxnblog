@@ -106,7 +106,6 @@ export default class ArticleDetail extends Vue {
         articleID: id,
       },
     }).then((res: any) => {
-      console.log(res, 'get-articles-detail');
       this.dataSource = res.data.content;
       this.dataDetail = res.data;
       setTimeout(() => {
@@ -125,7 +124,6 @@ export default class ArticleDetail extends Vue {
         artID: this.artId,
       },
     }).then((res: any) => {
-      console.log(res, 'get-comments-list-art');
       if (res.code === 1000) {
         this.dataCom = res.data;
       }
@@ -140,7 +138,6 @@ export default class ArticleDetail extends Vue {
         val: params,
       },
     }).then((res: any) => {
-      console.log(res, 'save-commonts-art');
       if (res.code === 1000) {
         this.$Message.success({
           content: '评论成功！',

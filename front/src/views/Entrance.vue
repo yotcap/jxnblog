@@ -45,8 +45,6 @@ export default class Entrance extends Vue {
   handleAccess () {
     Axios({
       url: '/statistics/access',
-    }).then((res: any) => {
-      console.log(res, 'access-statistics');
     });
   }
 }

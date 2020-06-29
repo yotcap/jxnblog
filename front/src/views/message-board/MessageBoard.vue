@@ -30,7 +30,6 @@ export default class MessageBoard extends Vue {
         type: 'msg',
       },
     }).then((res: any) => {
-      console.log(res, 'get-msg-comments');
       if (res.code === 1000) {
         this.dataCom = res.data;
       }
@@ -44,7 +43,6 @@ export default class MessageBoard extends Vue {
         val: params,
       },
     }).then((res: any) => {
-      console.log(res, 'save-comments-msg');
       if (res.code === 1000) {
         this.$Message.success({
           content: '留言成功！',

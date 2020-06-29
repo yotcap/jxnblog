@@ -58,7 +58,6 @@ export default class Home extends Vue {
         date,
       },
     }).then((res: any) => {
-      console.log(res, 'get-articles-list');
       this.dataCard = res.data.articleList;
       this.totalNum = res.data.totalNum;
     });

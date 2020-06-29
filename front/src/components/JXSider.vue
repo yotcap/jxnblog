@@ -74,7 +74,6 @@ export default class JXSider extends Vue {
     Axios({
       url: '/config/get',
     }).then((res: any) => {
-      console.log(res, 'get-config');
       if (res.code === 1000) {
         const data = res.data;
         if (data.isCategory) this.getOrderList('category');
@@ -87,7 +86,6 @@ export default class JXSider extends Vue {
     Axios({
       url: '/article/getCategoryList',
     }).then((res: any) => {
-      console.log(res, 'get-category-list');
       this.dataCategoryList = res.data;
     });
   }
@@ -98,7 +96,6 @@ export default class JXSider extends Vue {
         type,
       },
     }).then((res: any) => {
-      console.log(res, `get-${type}-list`);
       switch (type) {
         case 'category':
           this.dataCategoryList = res.data;
@@ -109,7 +106,7 @@ export default class JXSider extends Vue {
           this.isCreateTime = true;
           break;
         default:
-          console.log('durkdurkdurk');
+          console.error('unknown order list type');
       }
     });
   }
