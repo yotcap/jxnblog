@@ -1,6 +1,6 @@
 # JXN的个人博客
 > 新服务器还未来得及部署，线上暂时关闭。  
-> ~~线上地址：~~[http://yotcap.top](http://yotcap.top)  
+> 线上地址：[http://yotcap.top](http://yotcap.top)  
 
 
 用来练手技能的项目，后期会持续尝试新技术不断优化。
