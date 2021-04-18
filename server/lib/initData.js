@@ -4,14 +4,13 @@ const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 const Statistics = Model.getModel('statisticsSchema');
 const Config = Model.getModel('configSchema');
-const _U = require('./utils');
 
 const isClear = false;    // 格式化库
 
 const isGenerateData = true;   // 是否制造一些假数据
 
-const numArticleStart = 0;    // 文章开始id
-const numArticleTotal = 5;    // 文章总数
+const numArticleStart = 0;    // 假数据-文章开始id
+const numArticleTotal = 5;    // 假数据-文章总数
 
 if (isClear) {
   clearDB();

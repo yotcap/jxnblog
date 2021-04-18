@@ -6,6 +6,7 @@ server/log/*
 dist
 dist.zip
 behind.zip
+server.zip
 
 # local env files
 .env.local
