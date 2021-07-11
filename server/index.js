@@ -16,6 +16,7 @@ const RouterConfig = require('./api/config');
 const RouterStaticFiles = require('./api/staticFiles');
 const _U = require('./lib/utils');
 const _C = require('./lib/constants');
+const expressStaticGzip = require('express-static-gzip');
 
 const reagentAppToken = global.REAGENT_APP_TOEKN || '1';
 const reagentAppAuth = global.REAGENT_APP_AUTH || '1';
@@ -54,7 +55,12 @@ app.use(BASE_PATH+'/statistics', RouterStatistics);
 app.use(BASE_PATH+'/comments', RouterComments);
 app.use(BASE_PATH+'/config', RouterConfig);
 app.use(BASE_PATH+'/upload', RouterStaticFiles.upup);
-app.use(BASE_PATH+'/static', (req, res, next) => {
+app.use(BASE_PATH+'/static', expressStaticGzip('static', {
+  customCompressions: [{
+    encodingName: 'gzip',
+    fileExtension: 'gz'
+  }]
+}), (req, res, next) => {
     // appstore 需验证
     if (req.url.indexOf('/appstore') != -1) {
       const { token } = req.query;
