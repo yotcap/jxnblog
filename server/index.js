@@ -67,10 +67,8 @@ app.use(BASE_PATH+'/static', expressStaticGzip('static', {
       const auth = req.header('Auth');
 
       if (token===reagentAppToken && auth===reagentAppAuth) {
-        res.setHeader('Connection', 'keep-alive');
-        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-        res.setHeader('Cache-Control', 'max-age=300');
-        res.setHeader('Accept-Ranges', 'bytes');
+        // res.setHeader('Connection', 'keep-alive');
+        // res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         // res.setHeader('Content-Encoding', 'gzip');
         next();
       } else {
