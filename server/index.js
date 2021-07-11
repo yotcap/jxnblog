@@ -64,7 +64,7 @@ app.use(BASE_PATH+'/static', (req, res, next) => {
         res.setHeader('Connection', 'keep-alive');
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Cache-Control', 'max-age=300');
-        res.setHeader('Content-Encoding', 'gzip');
+        // res.setHeader('Content-Encoding', 'gzip');
         next();
       } else {
         // 无权限
