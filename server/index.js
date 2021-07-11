@@ -61,6 +61,8 @@ app.use(BASE_PATH+'/static', (req, res, next) => {
       const auth = req.header('Auth');
 
       if (token===reagentAppToken && auth===reagentAppAuth) {
+        res.setHeader('Connection', 'close');
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         next();
       } else {
         // 无权限
