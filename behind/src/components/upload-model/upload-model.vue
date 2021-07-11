@@ -5,7 +5,6 @@
       :action="uploadUrl"
       :before-upload="handleBeforeUpload"
       :data="uploadParams"
-      accept="image/png, image/jpg"
       :max-size="$config.maxFileSize"
     >
       <Button icon="ios-cloud-upload-outline" :loading="uploadLoading">上传文件</Button>
@@ -35,7 +34,12 @@ export default {
         this.uploadParams = {
           type: 'flowers'
         }
+      } else if (this.type === 'appstore') {
+        this.uploadParams = {
+          type: 'reagentapp'
+        }
       }
+
       return new Promise(resolve => {
         this.$nextTick(() => resolve(true))
       })

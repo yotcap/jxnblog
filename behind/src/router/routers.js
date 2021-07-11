@@ -123,6 +123,19 @@ export default [
       }
     ]
   },
+  {
+    path: '/appstore',
+    name: '_appstore',
+    component: Main,
+    children: [
+      {
+        path: 'appstore_page',
+        name: 'appstore',
+        meta: { title: '试剂管理APP' },
+        component: () => import('@/view/appstore.vue')
+      }
+    ]
+  },
   // {
   //   path: '',
   //   name: 'doc',

@@ -1,19 +1,23 @@
-global.DB_URL_BUILD = 'mongodb://jxn:jxncap1.0@127.0.0.1:27017/jxndb';
+global.DB_URL_BUILD = 'mongodb://127.0.0.1:27018/jxblog';
+
+require('./utils');
 const md5 = require('js-md5');
 const Model = require('../db/index');
 const Article = Model.getModel('articleSchema');
 const Statistics = Model.getModel('statisticsSchema');
 const Config = Model.getModel('configSchema');
+const Static = Model.getModel('staticFileSchema');
 
 const isClear = false;    // 格式化库
 
-const isGenerateData = true;   // 是否制造一些假数据
+const isGenerateData = false;   // 是否制造一些假数据
 
 const numArticleStart = 0;    // 假数据-文章开始id
 const numArticleTotal = 5;    // 假数据-文章总数
 
 if (isClear) {
   clearDB();
+  // clearAppStore();
 } else {
   initDB();
   if (isGenerateData) generateSomeData();
@@ -95,6 +99,14 @@ function initConfig () {
       } else reject();
     })
   })
+}
+
+/**
+ * 清空appstore
+ */
+ async function clearAppStore () {
+  await Static.remove({ key: 'reagentapp' }, (err, doc) => cs('cleared Appstore', 'g', 'warn'));
+  Model.close();
 }
 
 // 批量生成文章

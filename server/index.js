@@ -1,4 +1,3 @@
-const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -18,8 +17,12 @@ const RouterStaticFiles = require('./api/staticFiles');
 const _U = require('./lib/utils');
 const _C = require('./lib/constants');
 
+const reagentAppToken = global.REAGENT_APP_TOEKN || '1';
+const reagentAppAuth = global.REAGENT_APP_AUTH || '1';
+
 const PORT = 9090;
 const BASE_PATH = '/xpi';
+
 // 日志文件路径
 const logAccessPath = 'log/access';
 const logErrorPath = 'log/error';
@@ -52,10 +55,28 @@ app.use(BASE_PATH+'/comments', RouterComments);
 app.use(BASE_PATH+'/config', RouterConfig);
 app.use(BASE_PATH+'/upload', RouterStaticFiles.upup);
 app.use(BASE_PATH+'/static', (req, res, next) => {
-    res.setHeader('Content-Type', 'image/jpg, image/png');
-    next();
+    // appstore 需验证
+    if (req.url.indexOf('/appstore') != -1) {
+      const { token } = req.query;
+      const auth = req.header('Auth');
+
+      if (token===reagentAppToken && auth===reagentAppAuth) {
+        next();
+      } else {
+        // 无权限
+        res.status(403).send(_C.CODE_STATIC_NO_AUTH);
+      }
+      
+    } else {
+      res.setHeader('Content-Type', 'image/jpg, image/png');
+      // 普通则无限制访问
+      next();
+    }
+
   }, RouterStaticFiles.static);
 app.use(BASE_PATH+'/flowers', RouterStaticFiles.routerFlowers);
+app.use(BASE_PATH+'/appstore', RouterStaticFiles.routerApp);
+
 app.use(compression());   // 启用gzip压缩
 
 // 错误日志
